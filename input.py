@@ -17,8 +17,7 @@ msg_error_low_value = 'ERROR: el valor introducido es muy bajo.'
 
 # Main functions.
 def check_if_value_is_numeric(value):
-    """Returns True is the argument is a number, False otherwise."""
-
+    """Returns True if the argument is a number, False otherwise."""
     try:
         value = int(value)
     except ValueError:
@@ -27,12 +26,17 @@ def check_if_value_is_numeric(value):
 
 
 def check_if_value_is_negative(value):
+    """Returns True if the argument is a positive number, False otherwise."""
     if int(value) < 0:
         return True
     return False
 
 
 def check_take_off_weight(to_weight):
+    """
+    Returns None if the argument is a valid aircraft weight,
+    otherwise the programs stops with a custom error message.
+    """
     if check_if_value_is_numeric(to_weight) is False:
         sys.exit('Takeoff weight | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(to_weight) is True:
@@ -46,6 +50,10 @@ def check_take_off_weight(to_weight):
 
 
 def check_fuel_capacity(fuel_capacity):
+    """
+    Returns None if the argument is a valid fuel capacity,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(fuel_capacity) is False:
         sys.exit('Fuel Capacity | ' + msg_error_invalid_value)
     elif int(fuel_capacity) != 40 and int(fuel_capacity) != 50:
