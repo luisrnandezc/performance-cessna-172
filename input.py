@@ -17,6 +17,8 @@ msg_error_low_value = 'ERROR: el valor introducido es muy bajo.'
 
 # Main functions.
 def check_if_value_is_numeric(value):
+    """Returns True is the argument is a number, False otherwise."""
+
     try:
         value = int(value)
     except ValueError:
