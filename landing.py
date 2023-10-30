@@ -17,8 +17,8 @@ def compute_landing_ground_roll(press_alt, temp, takeoff_df):
 
 
 def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind):
-    if wind != '0':
-        knots = wind[0] + wind[1]
+    if wind != 0:
+        knots = wind[0:2]
         direction = wind[-1]
         if direction == 'H':
             correction = round((int(knots)*0.1)/9, 2)

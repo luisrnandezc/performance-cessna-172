@@ -89,12 +89,15 @@ def compute_endurance_and_range(press_alt, power, df):
 
 
 def range_wind_correction(wind, endurance, range):
-    wind_velocity = int(wind[0:2])
-    wind_direction = wind[-1]
-    correction = endurance*wind_velocity
-    if wind_direction == 'T':
-        return range + correction
-    return range - correction
+    if wind != 0:
+        wind_velocity = int(wind[0:2])
+        wind_direction = wind[-1]
+        correction = endurance*wind_velocity
+        if wind_direction == 'T':
+            return int(round(range + correction, 0))
+        else:
+            return int(round(range - correction, 0))
+    return int(round(range, 0))
 
 
 def compute_cruise_performance(input_data, power_df, range_df, endurance_df):

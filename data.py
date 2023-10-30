@@ -102,9 +102,18 @@ def valid_cruise_press_alt_1000(cruise_press_alt):
 
 
 def valid_cruise_power_press_alt(cruise_press_alt):
-    if (cruise_press_alt % 2) != 0:
-        return cruise_press_alt + 1000
-    return cruise_press_alt
+    valid_altitudes = list(range(2000, 14000, 2000))
+    max_alt = valid_altitudes[-1]
+    if cruise_press_alt > max_alt:
+        return max_alt
+    else:
+        for valid_alt in valid_altitudes:
+            if cruise_press_alt == valid_alt:
+                return valid_alt
+            elif cruise_press_alt >= valid_alt + 500:
+                continue
+            else:
+                return valid_alt
 
 
 def compute_valid_rpm_for_cruise_altitudes(power_df):
@@ -185,9 +194,10 @@ def compute_valid_performance_data(input_data, power_df):
     roc_press_alt = valid_roc_press_alt(int(input_data['TOPA']))
     roc_temp = valid_roc_temp(int(input_data['TOT']))
     # Cruise data.
-    cruise_press_alt_500 = valid_cruise_press_alt_500(int(input_data['CRPA']))
-    cruise_press_alt_1000 = valid_cruise_press_alt_1000(int(input_data['CRPA']))
-    cruise_power_press_alt = valid_cruise_power_press_alt(cruise_press_alt_1000)
+    real_press_alt = int(input_data['CRPA'])
+    cruise_press_alt_500 = valid_cruise_press_alt_500(real_press_alt)
+    cruise_press_alt_1000 = valid_cruise_press_alt_1000(real_press_alt)
+    cruise_power_press_alt = valid_cruise_power_press_alt(real_press_alt)
     cruise_rpm = valid_cruise_rpm(power_df, cruise_power_press_alt, int(input_data['RPM']))
     # Landing data.
     landing_press_alt = valid_landing_press_alt(int(input_data['LDPA']))

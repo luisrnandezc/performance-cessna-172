@@ -11,11 +11,12 @@ import takeoff
 import cruise
 import fuel
 import landing
+import output
 import pandas as pd
 import openpyxl
 
 # Read input data.
-input_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\input\case1.txt'
+input_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\input\case2.txt'
 input_file = open(input_path, 'r')
 
 # Check input data.
@@ -56,4 +57,8 @@ fuel_required, fuel_reserve = fuel.compute_fuel_required(input_data, climb_df, v
 land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
 
 # Generate performance file.
-# TODO
+results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
+           max_endurance, max_range, fuel_required, fuel_reserve,
+           land_ground_roll, land_fifty_roll]
+output_data = output.write_output_file(results)
+print('foo')
