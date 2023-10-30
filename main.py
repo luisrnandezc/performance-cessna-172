@@ -10,6 +10,7 @@ import data
 import takeoff
 import cruise
 import fuel
+import landing
 import pandas as pd
 import openpyxl
 
@@ -37,7 +38,7 @@ atm_df = pd.read_excel(performance_path, sheet_name='atm', index_col=1)
 valid_data = data.compute_valid_performance_data(input_data, power_df)
 
 # Compute takeoff performance.
-ground_roll, fifty_ft_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
+takeoff_ground_roll, takeoff_fifty_ft_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
 
 # Compute cruise performance.
 if input_data['FC'] == 40:
@@ -52,6 +53,7 @@ max_endurance, max_range, velocity, fuel_flow = cruise.compute_cruise_performanc
 fuel_required, fuel_reserve = fuel.compute_fuel_required(input_data, climb_df, velocity, fuel_flow)
 
 # Compute landing performance.
-# TODO
+land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
 
 # Generate performance file.
+# TODO
