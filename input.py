@@ -63,6 +63,10 @@ def check_fuel_capacity(fuel_capacity):
 
 
 def check_takeoff_runway_length(to_rwy_length):
+    """
+    Returns None if the argument is a valid runway length,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(to_rwy_length) is False:
         sys.exit('Takeoff runway length | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(to_rwy_length) is True:
@@ -74,6 +78,10 @@ def check_takeoff_runway_length(to_rwy_length):
 
 
 def check_takeoff_runway_condition(to_rwy_condition):
+    """
+    Returns None if the argument is a valid runway condition,
+    otherwise the program stops with a pertinent error message.
+    """
     valid_conditions = ['PD', 'GD']
     if to_rwy_condition not in valid_conditions:
         sys.exit('Takeoff runway condition | ' + msg_error_invalid_value)
@@ -82,6 +90,10 @@ def check_takeoff_runway_condition(to_rwy_condition):
 
 
 def check_takeoff_pressure_altitude(to_press_altitude):
+    """
+    Returns None if the argument is a valid pressure altitude,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(to_press_altitude) is False:
         sys.exit('Takeoff pressure altitude | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(to_press_altitude) is True:
@@ -93,6 +105,10 @@ def check_takeoff_pressure_altitude(to_press_altitude):
 
 
 def check_takeoff_temperature(to_temperature):
+    """
+    Returns None if the argument is a valid takeoff temperature,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(to_temperature) is False:
         sys.exit('Takeoff temperature | ' + msg_error_invalid_value)
     elif int(to_temperature) > 40:
@@ -104,6 +120,10 @@ def check_takeoff_temperature(to_temperature):
 
 
 def check_takeoff_wind(to_wind):
+    """
+    Returns None if the argument is a valid takeoff wind value,
+    otherwise the program stops with a pertinent error message.
+    """
     if to_wind == '0':
         return None
     if len(to_wind) != 3:
@@ -121,6 +141,10 @@ def check_takeoff_wind(to_wind):
 
 
 def check_travel_distance(travel_distance):
+    """
+    Returns None if the argument is a valid distance,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(travel_distance) is False:
         sys.exit('Travel distance | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(travel_distance) is True:
@@ -130,6 +154,10 @@ def check_travel_distance(travel_distance):
 
 
 def check_cruise_pressure_altitude(cr_press_altitude):
+    """
+    Returns None if the argument is a valid cruise pressure altitude,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(cr_press_altitude) is False:
         sys.exit('Cruise pressure altitude | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(cr_press_altitude) is True:
@@ -141,6 +169,10 @@ def check_cruise_pressure_altitude(cr_press_altitude):
 
 
 def check_cruise_temperature(cr_temperature):
+    """
+    Returns None if the argument is a valid cruise temperature,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(cr_temperature) is False:
         sys.exit('Cruise temperature | ' + msg_error_invalid_value)
     elif int(cr_temperature) > 40:
@@ -152,6 +184,10 @@ def check_cruise_temperature(cr_temperature):
 
 
 def check_cruise_wind(cr_wind):
+    """
+    Returns None if the argument is a valid cruise wind value,
+    otherwise the program stops with a pertinent error message.
+    """
     if cr_wind == '0':
         return None
     if len(cr_wind) != 3:
@@ -169,6 +205,10 @@ def check_cruise_wind(cr_wind):
 
 
 def check_cruise_rpm(cr_rpm):
+    """
+    Returns None if the argument is a valid cruise rpm,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(cr_rpm) is False:
         sys.exit('Cruise rpm | ' + msg_error_invalid_value)
     cr_rpm = int(cr_rpm)
@@ -180,6 +220,10 @@ def check_cruise_rpm(cr_rpm):
 
 
 def check_landing_runway_length(land_rwy_length):
+    """
+    Returns None if the argument is a valid runway length,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(land_rwy_length) is False:
         sys.exit('Landing runway length | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(land_rwy_length) is True:
@@ -191,6 +235,10 @@ def check_landing_runway_length(land_rwy_length):
 
 
 def check_landing_runway_condition(land_rwy_condition):
+    """
+    Returns None if the argument is a valid runway condition,
+    otherwise the program stops with a pertinent error message.
+    """
     valid_conditions = ['PD', 'GD']
     if land_rwy_condition not in valid_conditions:
         sys.exit('Landing runway condition | ' + msg_error_invalid_value)
@@ -199,6 +247,10 @@ def check_landing_runway_condition(land_rwy_condition):
 
 
 def check_landing_pressure_altitude(land_press_altitude):
+    """
+    Returns None if the argument is a valid pressure altitude,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(land_press_altitude) is False:
         sys.exit('Landing pressure altitude | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(land_press_altitude) is True:
@@ -210,6 +262,10 @@ def check_landing_pressure_altitude(land_press_altitude):
 
 
 def check_landing_temperature(land_temperature):
+    """
+    Returns None if the argument is a valid landing temperature,
+    otherwise the program stops with a pertinent error message.
+    """
     if check_if_value_is_numeric(land_temperature) is False:
         sys.exit('Landing temperature | ' + msg_error_invalid_value)
     elif int(land_temperature) > 40:
@@ -221,6 +277,10 @@ def check_landing_temperature(land_temperature):
 
 
 def check_landing_wind(land_wind):
+    """
+    Returns None if the argument is a valid wind value,
+    otherwise the program stops with a pertinent error message.
+    """
     if land_wind == '0':
         return None
     if len(land_wind) != 3:
@@ -238,6 +298,22 @@ def check_landing_wind(land_wind):
 
 
 def check_input_data(file):
+    """
+    This function checks the validity of the data
+    entered by the user.
+
+        > If the data is valid the function returns a
+        dictionary with the validated data.
+
+        > Else, the program stops with an error message
+        indicating the source of the error.
+
+    :argument:
+        file: file containing the raw user input data.
+    :returns:
+        input_data: dictionary of validated input data.
+    """
+
     # Read the data.
     lines = file.readlines()
     values = []
@@ -250,22 +326,22 @@ def check_input_data(file):
             'LDL', 'LDC', 'LDPA', 'LDT', 'LDW']
     input_data = {key: value for (key, value) in zip(keys, values)}
 
-    # Request general data.
+    # Check general data.
     check_take_off_weight(input_data['TOWG'])
     check_fuel_capacity(input_data['FC'])
-    # Request takeoff data.
+    # Check takeoff data.
     check_takeoff_runway_length(input_data['TOL'])
     check_takeoff_runway_condition(input_data['TOC'])
     check_takeoff_pressure_altitude(input_data['TOPA'])
     check_takeoff_temperature(input_data['TOT'])
     check_takeoff_wind(input_data['TOW'])
-    # Request cruise data.
+    # Check cruise data.
     check_travel_distance(input_data['TD'])
     check_cruise_pressure_altitude(input_data['CRPA'])
     check_cruise_temperature(input_data['CRT'])
     check_cruise_wind(input_data['CRW'])
     check_cruise_rpm(input_data['RPM'])
-    # Request landing data.
+    # Check landing data.
     check_landing_runway_length(input_data['LDL'])
     check_landing_runway_condition(input_data['LDC'])
     check_landing_pressure_altitude(input_data['LDPA'])
