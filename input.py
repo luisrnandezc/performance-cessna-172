@@ -1,7 +1,7 @@
 """
 Cessna 172N Performance Calculator
 Author: Luis Hernández
-GitHub: luishc1618
+GitHub: luisrnandezc
 Date: 13/09/2023
 """
 
