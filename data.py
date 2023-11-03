@@ -75,30 +75,7 @@ def valid_takeoff_temp(takeoff_temp):
 
 
 def valid_roc_press_alt(takeoff_press_alt):
-    """Returns the corrected pressure altitude for ROC computation.
-
-    The objective of this function is to find the pressure altitude
-    that can be used to read the Rate of Climb (ROC) value from
-    the ROC table. This is required because the ROC table only
-    has data for altitude values from 0 to 12000 feets in 2000 feets
-    increments.
-
-    The takeoff_press_alt is rounded to the next valid altitude when
-    the former is 500 feets higher or more than the current valid
-    altitude. Please see the following examples:
-
-        > If takeoff_press_alt is equal to 2200 ft, the function
-        returns 2000 ft as the valid pressure altitude.
-        > If takeoff_press_alt is equal to 2500 ft, the function
-        returns 4000 ft as the valid pressure altitude.
-        > If takeoff_press_alt is equal to 3000 ft, the function
-        returns 4000 ft as the valid pressure altitude.
-
-    Args:
-        takeoff_press_alt: takeoff pressure altitude [ft]
-    Returns:
-        valid_alt: valid ROC pressure altitude [ft]
-    """
+    """Returns the corrected pressure altitude for ROC computation."""
     valid_altitudes = list(range(0, 14000, 2000))
     max_alt = valid_altitudes[-1]
     if takeoff_press_alt > max_alt:
