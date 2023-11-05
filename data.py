@@ -33,6 +33,8 @@ EXAMPLE:
     valid data (weight, temperature and rpm).
 """
 
+import bisect
+
 
 def valid_takeoff_weight(takeoff_weight):
     """Returns the corrected takeoff weight."""
@@ -159,27 +161,28 @@ def valid_cruise_power_press_alt(cruise_press_alt):
 
 
 def compute_valid_rpm_for_cruise_altitudes(power_df):
+    """Returns a dictionary containing the valid RPM values for each
+    pressure altitude.
+    """
     valid_rpm = {}
     valid_altitudes = list(range(2000, 14000, 2000))
     for press_alt in valid_altitudes:
-        valid_rpm[press_alt] = power_df[(power_df['press_alt'] == press_alt)]['rpm'].values.tolist()
+        valid_rpm[press_alt] = power_df[(power_df['press_alt'] == press_alt)]['rpm']
+        valid_rpm[press_alt] = valid_rpm[press_alt].values.tolist()
     return valid_rpm
 
 
 def valid_cruise_rpm(power_df, cruise_power_press_alt, cruise_rpm):
     valid_rpm_for_cruise_altitudes = compute_valid_rpm_for_cruise_altitudes(power_df)
     rpm_values = valid_rpm_for_cruise_altitudes[cruise_power_press_alt]
-    rpm_values.append(cruise_rpm)
-    rpm_values.sort()
+    # If the user rpm value is not a valid rpm, it's necessary to approximate
+    # it to the immediate inferior or superior value.
+    bisect.insort(rpm_values, cruise_rpm, key=lambda x: -x)
     rpm_index = rpm_values.index(cruise_rpm)
     low_rpm = rpm_values[rpm_index-1]
     high_rpm = rpm_values[rpm_index+1]
-    low_delta = cruise_rpm - low_rpm
-    high_delta = high_rpm - cruise_rpm
-    if low_delta < high_delta:
+    if cruise_rpm < (high_rpm + low_rpm)/2:
         return low_rpm
-    elif low_delta > high_delta:
-        return high_rpm
     else:
         return high_rpm
 

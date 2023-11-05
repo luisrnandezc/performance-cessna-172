@@ -16,7 +16,7 @@ import pandas as pd
 import openpyxl
 
 # Read input data.
-input_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\input\case2.txt'
+input_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\input\case1.txt'
 input_file = open(input_path, 'r')
 
 # Check input data.
