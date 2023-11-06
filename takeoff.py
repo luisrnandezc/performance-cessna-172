@@ -3,13 +3,43 @@ Cessna 172N Performance Calculator
 Author: Luis Hernández
 GitHub: luisrnandezc
 Date: 13/09/2023
-"""
 
+NAME:
+    takeoff.py
+
+DESCRIPTION:
+    The objective of this module is to compute the takeoff
+    performance. Three values are obtained:
+
+    > ground_roll [ft]
+        Minimum required takeoff distance
+    > fifty_ft_roll [ft]
+        Distance required to clear an obstacle located 50 ft above the runway.
+        It is always bigger than the ground_roll distance.
+    > roc [ft/s]
+        Maximum Rate of Climb expected immediately after takeoff.
+"""
 
 import math
 
 
 def compute_takeoff_ground_roll(weight, press_alt, temp, takeoff_df):
+    """Returns the required takeoff distances.
+
+    This function computes the minimum takeoff distance considering the
+    aircraft weight, airport temperature, airport pressure altitude
+    and performance data.
+
+    Args:
+        weight (int): aircraft takeoff weight.
+        press_alt (int): takeoff pressure altitude.
+        temp (int): takeoff temperature.
+        takeoff_df: takeoff performance dataframe.
+
+    Returns:
+        ground_roll (int): minimum required takeoff distance.
+        fifty_ft_roll (int): distance required to clear a 50 ft obstacle.
+        """
     takeoff_df = takeoff_df[(takeoff_df['weight'] == weight) & (takeoff_df['press_alt'] == press_alt)]
     ground_roll = takeoff_df.iloc[0][str(temp) + '_celsius_gr_roll']
     fifty_ft_roll = takeoff_df.iloc[0][str(temp) + '_celsius_50_ft']

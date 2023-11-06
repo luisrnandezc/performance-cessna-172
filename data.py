@@ -175,8 +175,8 @@ def compute_valid_rpm_for_cruise_altitudes(power_df):
 def valid_cruise_rpm(power_df, cruise_power_press_alt, cruise_rpm):
     valid_rpm_for_cruise_altitudes = compute_valid_rpm_for_cruise_altitudes(power_df)
     rpm_values = valid_rpm_for_cruise_altitudes[cruise_power_press_alt]
-    # If the user rpm value is not a valid rpm, it's necessary to approximate
-    # it to the immediate inferior or superior value.
+    # If the user rpm value is not a valid rpm, it's necessary to approximate it
+    # to the immediate inferior or superior value.
     bisect.insort(rpm_values, cruise_rpm, key=lambda x: -x)
     rpm_index = rpm_values.index(cruise_rpm)
     low_rpm = rpm_values[rpm_index-1]
@@ -188,6 +188,9 @@ def valid_cruise_rpm(power_df, cruise_power_press_alt, cruise_rpm):
 
 
 def valid_landing_press_alt(landing_press_alt):
+    """Returns the corrected pressure altitude required
+     for landing performance computation.
+    """
     valid_altitudes = list(range(0, 9000, 1000))
     max_alt = valid_altitudes[-1]
     if landing_press_alt > max_alt:
@@ -202,6 +205,9 @@ def valid_landing_press_alt(landing_press_alt):
 
 
 def valid_landing_temp(landing_temp):
+    """Returns the corrected temperature required
+     for landing performance computation.
+    """
     valid_temperatures = list(range(0, 50, 10))
     min_temp = valid_temperatures[0]
     if landing_temp < min_temp:
@@ -216,12 +222,16 @@ def valid_landing_temp(landing_temp):
 
 
 def update_input_data(input_data, data_to_update, values_to_update):
+    """Returns the updated input_data with the validated values"""
     for (key, value) in zip(data_to_update, values_to_update):
         input_data[key] = value
     return input_data
 
 
 def convert_to_integer(input_data):
+    """Returns an updated version of input_data in which
+    the numeric strings values are converted to integers.
+    """
     for data in input_data:
         value = input_data[data]
         if type(value) == str and value.isnumeric() is True:
@@ -253,6 +263,6 @@ def compute_valid_performance_data(input_data, power_df):
                         cruise_press_alt_500, cruise_press_alt_1000, cruise_power_press_alt, cruise_rpm,
                         landing_press_alt, landing_temp]
     input_data = update_input_data(input_data, data_to_update, values_to_update)
-    # Convert the corresponding data from string to integer.
+    # The values in input_data are converted to integers to facilitate later computations.
     input_data = convert_to_integer(input_data)
     return input_data
