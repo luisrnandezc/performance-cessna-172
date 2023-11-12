@@ -9,11 +9,28 @@ import sys
 
 
 def interpolate(x1, y1, x2, y2, xi):
-    value = round(((xi-x2)*y1 - (xi-x1)*y2)/(x1-x2), 2)
-    return value
+    """Returns the interpolated value yi."""
+    yi = round(((xi-x2)*y1 - (xi-x1)*y2)/(x1-x2), 2)
+    return yi
 
 
 def compute_standard_temperature_difference(press_alt, temp):
+    """Returns the temperature difference between the cruise temperature
+    and the expected standard temperature at cruise altitude.
+
+   Three possible return values:
+
+        'isa_m20': the cruise temperature is ISA-20.
+        'isa_p20': the cruise temperature is ISA+20.
+        'isa': the cruise temperature is ISA+0.
+
+    Args:
+        press_alt (int): cruise pressure altitude.
+        temp (int): cruise temperature.
+
+    Returns:
+        std_temp_diff (str): difference between cruise and standard temperature.
+    """
     std_temp = int(round(-0.002*press_alt + 15, 0))   # Linear equation representing the variation of temperature with pressure altitude.
     delta_temp = temp - std_temp
     if delta_temp < -10:
@@ -26,6 +43,7 @@ def compute_standard_temperature_difference(press_alt, temp):
 
 
 def check_for_invalid_data(power_press_alt, rpm):
+    """Checks for invalid combinations of RPM and Pressure Altitude"""
     invalid_combinations = [(2000, 2500), (4000, 2550), (6000, 2600), (8000, 2650)]
     data = (power_press_alt, rpm)
     if data in invalid_combinations:
@@ -34,6 +52,19 @@ def check_for_invalid_data(power_press_alt, rpm):
 
 
 def compute_cruise_power_setting(power_df, press_alt, rpm, std_temp_difference):
+    """Returns the engine power setting for cruise flight
+
+    Args:
+        power_df: cruise power setting dataframe.
+        press_alt (int): cruise pressure altitude.
+        rpm (int): cruise RPM selected by the pilot.
+        std_temp_difference (str): difference between cruise and standard temperature.
+
+    Returns:
+        power (int): cruise engine power in BHP.
+        velocity (int): cruise velocity in knots.
+        fuel_flow (float): cruise fuel flow in gph.
+    """
     power_df = power_df[(power_df['press_alt'] == press_alt) & (power_df['rpm'] == rpm)]
     power = int(power_df.iloc[0][std_temp_difference + '_bhp'])
     velocity = int(power_df.iloc[0][std_temp_difference + '_ktas'])
@@ -41,28 +72,28 @@ def compute_cruise_power_setting(power_df, press_alt, rpm, std_temp_difference):
     return power, velocity, fuel_flow
 
 
-def compute_endurance_and_range(press_alt, power, df):
+def compute_endurance(press_alt, power, df):
     altitude_values = list(range(0, 14000, 2000))
     power_values = [45, 55, 65, 75]
     if press_alt in altitude_values and power in power_values:
-        value = df.loc[press_alt][str(power) + '_bhp']
-    if press_alt in altitude_values and power not in power_values:
+        value = df.loc[press_alt][str(power)]
+    elif press_alt in altitude_values and power not in power_values:
         power_values.append(power)
         power_values.sort()
         index = power_values.index(power)
         low_power = power_values[index - 1]
         high_power = power_values[index + 1]
-        low_power_endurance = df.loc[press_alt][str(low_power) + '_bhp']
-        high_power_endurance = df.loc[press_alt][str(high_power) + '_bhp']
+        low_power_endurance = df.loc[press_alt][str(low_power)]
+        high_power_endurance = df.loc[press_alt][str(high_power)]
         value = interpolate(low_power, low_power_endurance, high_power, high_power_endurance, power)
-    if press_alt not in altitude_values and power in power_values:
+    elif press_alt not in altitude_values and power in power_values:
         altitude_values.append(press_alt)
         altitude_values.sort()
         index = altitude_values.index(press_alt)
         low_altitude = altitude_values[index - 1]
         high_altitude = altitude_values[index + 1]
-        low_altitude_endurance = df.loc[low_altitude][str(power) + '_bhp']
-        high_altitude_endurance = df.loc[high_altitude][str(power) + '_bhp']
+        low_altitude_endurance = df.loc[low_altitude][str(power)]
+        high_altitude_endurance = df.loc[high_altitude][str(power)]
         value = interpolate(low_altitude, low_altitude_endurance, high_altitude, high_altitude_endurance, press_alt)
     else:
         # Data preparation for interpolation.
@@ -77,27 +108,27 @@ def compute_endurance_and_range(press_alt, power, df):
         low_altitude = altitude_values[alt_index - 1]
         high_altitude = altitude_values[alt_index + 1]
         # First is necessary to interpolate for both the low and high altitudes values.
-        low_alt_low_power_endurance = df.loc[low_altitude][str(low_power) + '_bhp']
-        low_alt_high_power_endurance = df.loc[low_altitude][str(high_power) + '_bhp']
+        low_alt_low_power_endurance = df.loc[low_altitude][str(low_power)]
+        low_alt_high_power_endurance = df.loc[low_altitude][str(high_power)]
         low_alt_endurance = interpolate(low_power, low_alt_low_power_endurance, high_power, low_alt_high_power_endurance, power)
-        high_alt_low_power_endurance = df.loc[high_altitude][str(low_power) + '_bhp']
-        high_alt_high_power_endurance = df.loc[high_altitude][str(high_power) + '_bhp']
+        high_alt_low_power_endurance = df.loc[high_altitude][str(low_power)]
+        high_alt_high_power_endurance = df.loc[high_altitude][str(high_power)]
         high_alt_endurance = interpolate(low_power, high_alt_low_power_endurance, high_power, high_alt_high_power_endurance, power)
         # Now we can compute the final interpolated value for the real altitude.
         value = interpolate(low_altitude, low_alt_endurance, high_altitude, high_alt_endurance, press_alt)
     return value
 
 
-def range_wind_correction(wind, endurance, range):
+def range_wind_correction(wind, endurance, max_range):
     if wind != 0:
         wind_velocity = int(wind[0:2])
         wind_direction = wind[-1]
-        correction = endurance*wind_velocity
+        corr = endurance*wind_velocity
         if wind_direction == 'T':
-            return int(round(range + correction, 0))
+            max_range = max_range + corr
         else:
-            return int(round(range - correction, 0))
-    return int(round(range, 0))
+            max_range = max_range - corr
+    return int(round(max_range, 0))
 
 
 def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
@@ -109,14 +140,14 @@ def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
     # Compute values required by the cruise power setting table.
     power_press_alt = input_data['CRPPA']
     rpm = input_data['RPM']
-    # Check for invalid altitude-rpm combination.
+    # Checks for invalid combinations of RPM and pressure altitude
     if std_temp_difference == 'isa_m20':
         check_for_invalid_data(power_press_alt, rpm)
     # Read the power setting from the table.
     power, velocity, fuel_flow = compute_cruise_power_setting(power_df, power_press_alt, rpm, std_temp_difference)
     # Compute the total endurance and range.
-    max_endurance = round(compute_endurance_and_range(press_alt_500, power, endurance_df), 1)
-    max_range = round(compute_endurance_and_range(press_alt_500, power, range_df), 0)
+    max_endurance = round(compute_endurance(press_alt_500, power, endurance_df), 1)
+    max_range = round(compute_range(press_alt_500, power, range_df), 0)
     # Range correction because of wind.
     max_range = range_wind_correction(input_data['CRW'], max_endurance, max_range)
     return max_endurance, max_range, velocity, fuel_flow
