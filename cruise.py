@@ -6,12 +6,7 @@ Date: 13/09/2023
 """
 
 import sys
-
-
-def interpolate(x1, y1, x2, y2, xi):
-    """Returns the interpolated value yi."""
-    yi = round(((xi-x2)*y1 - (xi-x1)*y2)/(x1-x2), 2)
-    return yi
+import helpers
 
 
 def compute_standard_temperature_difference(press_alt, temp):
@@ -73,50 +68,17 @@ def compute_cruise_power_setting(power_df, press_alt, rpm, std_temp_difference):
 
 
 def compute_endurance(press_alt, power, df):
-    altitude_values = list(range(0, 14000, 2000))
-    power_values = [45, 55, 65, 75]
-    if press_alt in altitude_values and power in power_values:
-        value = df.loc[press_alt][str(power)]
-    elif press_alt in altitude_values and power not in power_values:
-        power_values.append(power)
-        power_values.sort()
-        index = power_values.index(power)
-        low_power = power_values[index - 1]
-        high_power = power_values[index + 1]
-        low_power_endurance = df.loc[press_alt][str(low_power)]
-        high_power_endurance = df.loc[press_alt][str(high_power)]
-        value = interpolate(low_power, low_power_endurance, high_power, high_power_endurance, power)
-    elif press_alt not in altitude_values and power in power_values:
-        altitude_values.append(press_alt)
-        altitude_values.sort()
-        index = altitude_values.index(press_alt)
-        low_altitude = altitude_values[index - 1]
-        high_altitude = altitude_values[index + 1]
-        low_altitude_endurance = df.loc[low_altitude][str(power)]
-        high_altitude_endurance = df.loc[high_altitude][str(power)]
-        value = interpolate(low_altitude, low_altitude_endurance, high_altitude, high_altitude_endurance, press_alt)
-    else:
-        # Data preparation for interpolation.
-        power_values.append(power)
-        power_values.sort()
-        power_index = power_values.index(power)
-        low_power = power_values[power_index - 1]
-        high_power = power_values[power_index + 1]
-        altitude_values.append(press_alt)
-        altitude_values.sort()
-        alt_index = altitude_values.index(press_alt)
-        low_altitude = altitude_values[alt_index - 1]
-        high_altitude = altitude_values[alt_index + 1]
-        # First is necessary to interpolate for both the low and high altitudes values.
-        low_alt_low_power_endurance = df.loc[low_altitude][str(low_power)]
-        low_alt_high_power_endurance = df.loc[low_altitude][str(high_power)]
-        low_alt_endurance = interpolate(low_power, low_alt_low_power_endurance, high_power, low_alt_high_power_endurance, power)
-        high_alt_low_power_endurance = df.loc[high_altitude][str(low_power)]
-        high_alt_high_power_endurance = df.loc[high_altitude][str(high_power)]
-        high_alt_endurance = interpolate(low_power, high_alt_low_power_endurance, high_power, high_alt_high_power_endurance, power)
-        # Now we can compute the final interpolated value for the real altitude.
-        value = interpolate(low_altitude, low_alt_endurance, high_altitude, high_alt_endurance, press_alt)
-    return value
+    try:
+        df.loc[press_alt][str(power)]
+    except KeyError:
+        return helpers.dataframe_interpolation(press_alt, power, df)
+
+
+def compute_range(press_alt, power, df):
+    try:
+        df.loc[press_alt][str(power)]
+    except KeyError:
+        return helpers.dataframe_interpolation(press_alt, power, df)
 
 
 def range_wind_correction(wind, endurance, max_range):
