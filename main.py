@@ -59,8 +59,8 @@ if __name__ == '__main__':
     land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
 
     # Generate performance file.
+    output_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\output\output.txt'
     results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
                max_endurance, max_range, fuel_required, fuel_reserve,
                land_ground_roll, land_fifty_roll]
-    output_data = output.write_output_file(results)
-    print('foo')
+    output_data = output.write_output_file(results, output_path)

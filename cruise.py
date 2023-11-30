@@ -68,29 +68,61 @@ def compute_cruise_power_setting(power_df, press_alt, rpm, std_temp_difference):
 
 
 def compute_endurance(press_alt, power, df):
+    """Returns the aircraft endurance in hours.
+
+    Args:
+        press_alt (int): cruise pressure altitude.
+        power (int): cruise power setting.
+        df: endurance dataframe.
+
+    Returns:
+        endurance (float): aircraft flight endurance in hours.
+    """
     try:
-        df.loc[press_alt][str(power)]
+        endurance = df.loc[press_alt][str(power)]
     except KeyError:
-        return helpers.dataframe_interpolation(press_alt, power, df)
+        endurance = helpers.dataframe_interpolation(press_alt, power, df)
+    return round(endurance, 1)
 
 
 def compute_range(press_alt, power, df):
+    """Returns the aircraft range in nautical miles.
+
+    Args:
+        press_alt (int): cruise pressure altitude.
+        power (int): cruise power setting.
+        df: range dataframe.
+
+    Returns:
+        rang (float): aircraft flight range in nautical miles.
+    """
     try:
-        df.loc[press_alt][str(power)]
+        rang = df.loc[press_alt][str(power)]
     except KeyError:
-        return helpers.dataframe_interpolation(press_alt, power, df)
+        rang = helpers.dataframe_interpolation(press_alt, power, df)
+    return round(rang, 0)
 
 
 def range_wind_correction(wind, endurance, max_range):
+    """Returns the aircraft range corrected by wind.
+
+    Args:
+        wind (str): cruise wind velocity and direction.
+        endurance (float): aircraft flight endurance in hours.
+        max_range (float): aircraft flight range in nautical miles.
+
+    Returns:
+        max_range (int): corrected aircraft flight range in nautical miles.
+    """
     if wind != 0:
         wind_velocity = int(wind[0:2])
         wind_direction = wind[-1]
         corr = endurance*wind_velocity
         if wind_direction == 'T':
-            max_range = max_range + corr
+            max_range = int(round(max_range + corr, 0))
         else:
-            max_range = max_range - corr
-    return int(round(max_range, 0))
+            max_range = int(round(max_range - corr, 0))
+    return max_range
 
 
 def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
@@ -108,8 +140,8 @@ def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
     # Read the power setting from the table.
     power, velocity, fuel_flow = compute_cruise_power_setting(power_df, power_press_alt, rpm, std_temp_difference)
     # Compute the total endurance and range.
-    max_endurance = round(compute_endurance(press_alt_500, power, endurance_df), 1)
-    max_range = round(compute_range(press_alt_500, power, range_df), 0)
+    max_endurance = compute_endurance(press_alt_500, power, endurance_df)
+    max_range = compute_range(press_alt_500, power, range_df)
     # Range correction because of wind.
     max_range = range_wind_correction(input_data['CRW'], max_endurance, max_range)
     return max_endurance, max_range, velocity, fuel_flow
