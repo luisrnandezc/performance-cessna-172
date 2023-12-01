@@ -35,7 +35,7 @@ def write_output_file(results, path):
         None
     """
     results = organize_final_results(results)
-    with open(path, 'w') as f:
+    with open(path + '\\' + 'output.txt', 'w') as f:
         for key, value in results.items():
             f.write('%s: %s\n' % (key, value))
     return None

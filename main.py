@@ -18,11 +18,10 @@ import openpyxl
 
 if __name__ == '__main__':
     # Read input and output path.
-    input_path = input("Ubicación del archivo de datos: ")
-    output_path = input("Ubicación del archivo de salida: ")
+    path = input("Ubicación del archivo de datos: ")
 
     # Read input data.
-    input_file = open(input_path, 'r')
+    input_file = open(path + '\\' + 'data.txt', 'r')
 
     # Check input data.
     input_data = input_check.check_input_data(input_file)
@@ -65,4 +64,4 @@ if __name__ == '__main__':
     results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
                max_endurance, max_range, fuel_required, fuel_reserve,
                land_ground_roll, land_fifty_roll]
-    output_data = output.write_output_file(results, output_path)
+    output_data = output.write_output_file(results, path)
