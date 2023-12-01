@@ -175,6 +175,8 @@ def compute_valid_rpm_for_cruise_altitudes(power_df):
 def valid_cruise_rpm(power_df, cruise_power_press_alt, cruise_rpm):
     valid_rpm_for_cruise_altitudes = compute_valid_rpm_for_cruise_altitudes(power_df)
     rpm_values = valid_rpm_for_cruise_altitudes[cruise_power_press_alt]
+    if cruise_rpm in rpm_values:
+        return cruise_rpm
     # If the user rpm value is not a valid rpm, it's necessary to approximate it
     # to the immediate inferior or superior value.
     bisect.insort(rpm_values, cruise_rpm, key=lambda x: -x)
@@ -234,8 +236,11 @@ def convert_to_integer(input_data):
     """
     for data in input_data:
         value = input_data[data]
-        if type(value) == str and value.isnumeric() is True:
-            input_data[data] = int(value)
+        if type(value) == str:
+            try:
+                input_data[data] = int(value)
+            except ValueError:
+                continue
     return input_data
 
 

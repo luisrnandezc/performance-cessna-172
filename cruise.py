@@ -28,9 +28,9 @@ def compute_standard_temperature_difference(press_alt, temp):
     """
     std_temp = int(round(-0.002*press_alt + 15, 0))   # Linear equation representing the variation of temperature with pressure altitude.
     delta_temp = temp - std_temp
-    if delta_temp < -10:
+    if delta_temp <= -10:
         std_temp_diff = 'isa_m20'
-    elif delta_temp > 10:
+    elif delta_temp >= 10:
         std_temp_diff = 'isa_p20'
     else:
         std_temp_diff = 'isa'
@@ -82,7 +82,7 @@ def compute_endurance(press_alt, power, df):
         endurance = df.loc[press_alt][str(power)]
     except KeyError:
         endurance = helpers.dataframe_interpolation(press_alt, power, df)
-    return round(endurance, 1)
+    return round(endurance, 2)
 
 
 def compute_range(press_alt, power, df):

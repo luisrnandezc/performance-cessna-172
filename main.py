@@ -5,7 +5,7 @@ GitHub: luisrnandezc
 Date: 13/09/2023
 """
 
-import input
+import input_check
 import data
 import takeoff
 import cruise
@@ -17,12 +17,15 @@ import openpyxl
 
 
 if __name__ == '__main__':
+    # Read input and output path.
+    input_path = input("Ubicación del archivo de datos: ")
+    output_path = input("Ubicación del archivo de salida: ")
+
     # Read input data.
-    input_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\input\case1.txt'
     input_file = open(input_path, 'r')
 
     # Check input data.
-    input_data = input.check_input_data(input_file)
+    input_data = input_check.check_input_data(input_file)
 
     # Store performance data.
     performance_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\data\performance_data.xlsx'
@@ -59,7 +62,6 @@ if __name__ == '__main__':
     land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
 
     # Generate performance file.
-    output_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\output\output.txt'
     results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
                max_endurance, max_range, fuel_required, fuel_reserve,
                land_ground_roll, land_fifty_roll]

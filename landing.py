@@ -26,9 +26,9 @@ def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind):
             corrected_fifty_ft_roll = math.ceil(fifty_ft_roll - fifty_ft_roll*correction)
             return corrected_ground_roll, corrected_fifty_ft_roll
         else:
-            correction = round((int(knots)*0.1)/2, 2) + 1
-            corrected_ground_roll = math.ceil(ground_roll*correction)
-            corrected_fifty_ft_roll = math.ceil(fifty_ft_roll*correction)
+            correction = round((int(knots)*0.1)/2, 2)
+            corrected_ground_roll = math.ceil(ground_roll + ground_roll*correction)
+            corrected_fifty_ft_roll = math.ceil(fifty_ft_roll + fifty_ft_roll*correction)
             return corrected_ground_roll, corrected_fifty_ft_roll
     else:
         return ground_roll, fifty_ft_roll

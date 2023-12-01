@@ -67,7 +67,7 @@ def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind):
         if direction == 'H':
             corr = -1*round((int(knots)*0.1)/9, 2)
         else:
-            corr = round((int(knots)*0.1)/2, 2) + 1
+            corr = round((int(knots)*0.1)/2, 2)
         ground_roll = math.ceil(ground_roll + ground_roll*corr)
         fifty_ft_roll = math.ceil(fifty_ft_roll + fifty_ft_roll*corr)
     return ground_roll, fifty_ft_roll
