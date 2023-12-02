@@ -12,7 +12,7 @@ DESCRIPTION:
     performance. Three values are obtained:
 
     > ground_roll [ft]
-        Minimum required takeoff distance
+        Minimum required takeoff distance.
     > fifty_ft_roll [ft]
         Distance required to clear an obstacle located 50 ft above the runway.
         It is always bigger than the ground_roll distance.
@@ -27,7 +27,7 @@ def compute_takeoff_ground_roll(weight, press_alt, temp, takeoff_df):
     """Returns the required takeoff distances.
 
     This function computes the minimum takeoff distance considering the
-    aircraft weight, airport temperature, airport pressure altitude
+    aircraft weight, airport pressure altitude, airport temperature,
     and performance data.
 
     Args:
