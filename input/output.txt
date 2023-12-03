@@ -1,0 +1,8 @@
+TOGR [ft]: 936
+TOGR50 [ft]: 1667
+Endurance [hours]: 4.76
+Range [nm]: 480
+Fuel [gal]: 33.1
+Reserve [gal]: 6.9
+LDGR [ft]: 590
+LDGR50 [ft]: 1370

@@ -27,17 +27,17 @@ if __name__ == '__main__':
     input_data = input_check.check_input_data(input_file)
 
     # Store performance data.
-    performance_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\data\performance_data.xlsx'
-    takeoff_df = pd.read_excel(performance_path, sheet_name='takeoff')
-    roc_df = pd.read_excel(performance_path, sheet_name='roc', index_col=0)
-    climb_df = pd.read_excel(performance_path, sheet_name='climb', index_col=0)
-    power_df = pd.read_excel(performance_path, sheet_name='power')
-    range40_df = pd.read_excel(performance_path, sheet_name='range40', index_col=0)
-    range50_df = pd.read_excel(performance_path, sheet_name='range50', index_col=0)
-    endurance40_df = pd.read_excel(performance_path, sheet_name='endurance40', index_col=0)
-    endurance50_df = pd.read_excel(performance_path, sheet_name='endurance50', index_col=0)
-    landing_df = pd.read_excel(performance_path, sheet_name='landing', index_col=1)
-    atm_df = pd.read_excel(performance_path, sheet_name='atm', index_col=1)
+    performance_path = r'C:\Users\luish\Desktop\Projects\Performance Cessna 172N\data'
+    takeoff_df = pd.read_csv(performance_path + '\\' + 'takeoff.csv')
+    roc_df = pd.read_csv(performance_path + '\\' + 'roc.csv', index_col=0)
+    climb_df = pd.read_csv(performance_path + '\\' + 'climb.csv', index_col=0)
+    power_df = pd.read_csv(performance_path + '\\' + 'power.csv',)
+    range40_df = pd.read_csv(performance_path + '\\' + 'range40.csv', index_col=0)
+    range50_df = pd.read_csv(performance_path + '\\' + 'range50.csv', index_col=0)
+    endurance40_df = pd.read_csv(performance_path + '\\' + 'endurance40.csv', index_col=0)
+    endurance50_df = pd.read_csv(performance_path + '\\' + 'endurance50.csv', index_col=0)
+    landing_df = pd.read_csv(performance_path + '\\' + 'landing.csv', index_col=1)
+    atm_df = pd.read_csv(performance_path + '\\' + 'atm.csv', index_col=1)
 
     # Generate valid performance data.
     valid_data = data.compute_valid_performance_data(input_data, power_df)
