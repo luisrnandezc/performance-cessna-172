@@ -2,4 +2,5 @@
 _pycache_/
 venv/
 trash/
-
+data/xlsx
+data/backup
