@@ -21,7 +21,7 @@ if __name__ == '__main__':
     path = input("Ubicación del archivo de datos: ")
 
     # Read input data.
-    input_file = open(path + '\\' + 'data.txt', 'r')
+    input_file = open(path + '\\' + 'input.txt', 'r')
 
     # Check input data.
     input_data = input_check.check_input_data(input_file)
