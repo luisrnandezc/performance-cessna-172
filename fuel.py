@@ -7,21 +7,64 @@ Date: 13/09/2023
 
 
 def compute_climb_time(press_alt, df):
+    """Returns the time required to climb from sea level to press_alt.
+
+    Args:
+        press_alt (int): pressure altitude in feets.
+        df: climb performance dataframe.
+
+    Returns:
+        time (float): time required to reach press_alt in minutes.
+    """
     time = df.loc[press_alt]['time']
     return time
 
 
 def compute_climb_fuel(press_alt, df):
+    """Returns the fuel required to climb from sea level to press_alt.
+
+    Args:
+        press_alt (int): pressure altitude in feets.
+        df: climb performance dataframe.
+
+    Returns:
+        fuel (float): fuel required to reach press_alt in US gallons.
+    """
     fuel = df.loc[press_alt]['fuel']
     return fuel
 
 
 def compute_climb_distance(press_alt, df):
+    """Returns the traveled horizontal distance when climbing from sea level
+     to press_alt.
+
+    Args:
+        press_alt (int): pressure altitude in feets.
+        df: climb performance dataframe.
+
+    Returns:
+        distance (float): horizontal distance in nautical miles.
+    """
     distance = df.loc[press_alt]['distance']
     return distance
 
 
 def apply_temperature_correction(time, fuel, distance, press_alt, temp, df):
+    """Returns the temperature-corrected climb performance values.
+
+    Args:
+        time (float): time required to reach press_alt in minutes.
+        fuel (float): fuel required to reach press_alt in US gallons.
+        distance (float): horizontal distance in nautical miles.
+        press_alt (int): pressure altitude in feets.
+        temp (int): temperature in degrees Celsius.
+        df: climb performance dataframe.
+
+    Returns:
+        time (float): corrected time required to reach press_alt in minutes.
+        fuel (float): corrected fuel required to reach press_alt in US gallons.
+        distance (float): corrected horizontal distance in nautical miles.
+    """
     std_temp = df.loc[press_alt]['temp']
     delta_temp = temp - std_temp
     if delta_temp > 0:
