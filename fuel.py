@@ -76,6 +76,18 @@ def apply_temperature_correction(time, fuel, distance, press_alt, temp, df):
 
 
 def compute_climb_data(press_alt, temp, df):
+    """Returns the time, fuel and distance required to climb.
+
+    Args:
+        press_alt (int): cruise pressure altitude.
+        temp (int): cruise temperature.
+        df: climb performance dataframe.
+
+    Returns:
+        time (float): time required to reach press_alt in minutes.
+        fuel (float): fuel required to reach press_alt in US gallons.
+        distance (float): distance required to reach press_alt in nautical miles.
+    """
     time = compute_climb_time(press_alt, df)
     fuel = compute_climb_fuel(press_alt, df)
     distance = compute_climb_distance(press_alt, df)
