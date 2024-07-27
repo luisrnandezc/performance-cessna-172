@@ -5,13 +5,15 @@
     <head>
         <meta charset="UTF-8">
         <title>Cessna 172N | Performance | Weight & Balance</title>
-        <link href="{% static 'styles.css' %}" rel="stylesheet">
+        <link href="{% static 'home/styles.css' %}" rel="stylesheet">
     </head>
 
     <body>
         <div class="home-page">
             <div class="button-holder">
-                <button class="app-selector">Performance</button>
+                <button class="app-selector">
+                    <a href="{% url 'performance:input' %}">Performance</a>
+                </button>
                 <button class="app-selector">Weight & Balance</button>
             </div>
         </div>

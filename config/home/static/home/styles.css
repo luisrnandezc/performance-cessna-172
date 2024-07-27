@@ -51,6 +51,10 @@ html, body {
     border: 2px solid #ffffff;
 }
 
+a {
+    text-decoration: none;
+}
+
 @media screen and (max-width: 1100px) {
     .app-selector {
         font-size: 0.75rem;
