@@ -23,14 +23,12 @@
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-weight">Takeoff weight [lb]:</label>
-                    <input class="input-text" type="number" name="to-weight" placeholder="Takeoff weight in lb">
+                    <input class="input-field" size="16" type="number" name="to-weight" placeholder="Takeoff weight in lb">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="tank-volume">Fuel capacity [gal]:</label>
-                    <select class="input-text" name="tank-volume" id="tank-volume">
-                        <option class="input-text" value="40">40</option>
-                        <option class="input-text" value="40">50</option>
-                    </select>
+                    40<input type="radio" name="tank=volume" value="40 gal" checked>
+                    50<input type="radio" name="tank=volume" value="50 gal">
                 </div>
 
                 <!-- Takeoff data -->
@@ -39,33 +37,29 @@
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-length">Takeoff runway length [ft]:</label>
-                    <input class="input-text" type="number" name="to-length" placeholder="Takeoff runway length in ft">
+                    <input class="input-field" size="10" type="number" name="to-length" placeholder="Takeoff runway length in ft">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-condition">Takeoff runway condition:</label>
-                    <select class="input-text" name="to-condition" id="to-condition">
-                        <option class="input-text" value="Paved and dry">Paved dry</option>
-                        <option class="input-text" value="Dry grass">Dry grass</option>
-                    </select>
+                    PD<input type="radio" name="to-condition" value="PD" checked>
+                    GD<input type="radio" name="to-condition" value="GD">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-altitude">Takeoff pressure altitude [ft]:</label>
-                    <input class="input-text" type="number" name="to-altitude" placeholder="Takeoff pressure altitude in ft">
+                    <input class="input-field" type="number" name="to-altitude" placeholder="Takeoff pressure altitude in ft">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-temp">Takeoff temperature [°C]:</label>
-                    <input class="input-text" type="number" name="to-temp" placeholder="Takeoff temperature in °C">
+                    <input class="input-field" type="number" name="to-temp" placeholder="Takeoff temperature in °C">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-wind-speed">Takeoff wind speed [kts]:</label>
-                    <input class="input-text" type="number" name="to-wind-speed" placeholder="Takeoff wind speed in knots">
+                    <input class="input-field" type="number" name="to-wind-speed" placeholder="Takeoff wind speed in knots">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="to-wind-direction">Takeoff wind direction:</label>
-                    <select class="input-text" name="to-wind-direction" id="to-wind-direction">
-                        <option class="input-text" value="Headwind">Headwind</option>
-                        <option class="input-text" value="Tailwind">Tailwind</option>
-                    </select>
+                    H<input type="radio" name="to-wind-direction" value="H" checked>
+                    T<input type="radio" name="to-wind-direction" value="T">
                 </div>
 
                 <!-- Cruise data -->
@@ -74,30 +68,28 @@
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="travel-distance">Travel distance [nm]:</label>
-                    <input class="input-text" type="number" name="travel-distance" placeholder="Travel distance in nautical miles">
+                    <input class="input-field" type="number" name="travel-distance" placeholder="Travel distance in nautical miles">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="cruise-altitude">Cruise altitude [ft]:</label>
-                    <input class="input-text" type="number" name="cruise-altitude" placeholder="Cruise altitude in ft">
+                    <input class="input-field" type="number" name="cruise-altitude" placeholder="Cruise altitude in ft">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="cruise-temperature">Cruise temperature [°C]:</label>
-                    <input class="input-text" type="number" name="cruise-temperature" placeholder="Cruise temperature in °C">
+                    <input class="input-field" type="number" name="cruise-temperature" placeholder="Cruise temperature in °C">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="cruise-wind-speed">Cruise wind speed [kts]:</label>
-                    <input class="input-text" type="number" name="cruise-wind-speed" placeholder="Cruise wind speed in knots">
+                    <input class="input-field" type="number" name="cruise-wind-speed" placeholder="Cruise wind speed in knots">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="cruise-wind-direction">Cruise wind direction:</label>
-                    <select class="input-text" name="cruise-wind-direction" id="cruise-wind-direction">
-                        <option class="input-text" value="Headwind">Headwind</option>
-                        <option class="input-text" value="Tailwind">Tailwind</option>
-                    </select>
+                    H<input type="radio" name="cruise-wind-direction" value="H" checked>
+                    T<input type="radio" name="cruise-wind-direction" value="T">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="cruise-power-setting">Cruise power setting [rpm]:</label>
-                    <input class="input-text" type="number" name="cruise-power-setting" placeholder="Cruise rpm">
+                    <input class="input-field" type="number" name="cruise-power-setting" placeholder="Cruise rpm">
                 </div>
 
                 <!--Landing data-->
@@ -106,36 +98,32 @@
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-length">Landing runway length [ft]:</label>
-                    <input class="input-text" type="number" name="land-length" placeholder="Landing runway length in ft">
+                    <input class="input-field" type="number" name="land-length" placeholder="Landing runway length in ft">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-condition">Landing runway condition:</label>
-                    <select class="input-text" name="land-condition" id="land-condition">
-                        <option class="input-text" value="Paved and dry">Paved dry</option>
-                        <option class="input-text" value="Dry grass">Dry grass</option>
-                    </select>
+                    PD<input type="radio" name="to-condition" value="PD" checked>
+                    GD<input type="radio" name="to-condition" value="GD">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-altitude">Landing pressure altitude [ft]:</label>
-                    <input class="input-text" type="number" name="land-altitude" placeholder="Landing pressure altitude in ft">
+                    <input class="input-field" type="number" name="land-altitude" placeholder="Landing pressure altitude in ft">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-temp">Landing temperature [°C]:</label>
-                    <input class="input-text" type="number" name="land-temp" placeholder="Landing temperature in °C">
+                    <input class="input-field" type="number" name="land-temp" placeholder="Landing temperature in °C">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-wind-speed">Landing wind speed [kts]:</label>
-                    <input class="input-text" type="number" name="land-wind-speed" placeholder="Landing wind speed in knots">
+                    <input class="input-field" type="number" name="land-wind-speed" placeholder="Landing wind speed in knots">
                 </div>
                 <div class="input-container">
                     <label class="form-text" for="land-wind-direction">Landing wind direction:</label>
-                    <select class="input-text" name="land-wind-direction" id="land-wind-direction">
-                        <option class="input-text" value="Headwind">Headwind</option>
-                        <option class="input-text" value="Tailwind">Tailwind</option>
-                    </select>
+                    H<input type="radio" name="land-wind-direction" value="H" checked>
+                    T<input type="radio" name="land-wind-direction" value="T">
                 </div>
 
-                <button class="input-text" type="submit" name="submit">Submit</button>
+                <button class="submit-button" type="submit" name="submit">Compute</button>
 
             </form>
         </div>
