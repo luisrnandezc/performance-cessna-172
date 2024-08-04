@@ -4,15 +4,18 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Cessna 172N | Performance | Weight & Balance</title>
+        <title>Performance Input</title>
         <link href="{% static 'performance/styles.css' %}" rel="stylesheet">
     </head>
 
     <body>
         <div class="form-container">
-            <form class="form">
-                
-                <!-- Main header -->
+            <form class="form" action="" method="post">
+                {{ form.non_field_errors }}
+                {% csrf_token %}
+                {% load widget_tweaks %}
+
+                <!-- Main form header -->
                 <div class="main-form-header">
                     <h1 class="form-text">Please provide de following information</h1>
                 </div>
@@ -21,110 +24,121 @@
                 <div class="sub-header">
                     <h2 class="form-text">General data</h2>
                 </div>
+
                 <div class="input-container">
-                    <label class="form-text" for="to-weight">Takeoff weight [lb]:</label>
-                    <input class="input-field" size="16" type="number" name="to-weight" placeholder="Takeoff weight in lb">
+                    <label class="form-text">Takeoff weight [lb]:</label>
+                    {{ form.to_weight|add_class:"input-field" }}
+                    <p class="error">{{ form.to_weight.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="tank-volume">Fuel capacity [gal]:</label>
-                    40<input type="radio" name="tank=volume" value="40 gal" checked>
-                    50<input type="radio" name="tank=volume" value="50 gal">
+                    <label class="form-text">Fuel capacity [gal]:</label>
+                    {{ form.fuel_capacity|add_class:"radio-input-field" }}
                 </div>
 
                 <!-- Takeoff data -->
                 <div class="sub-header">
                     <h2 class="form-text">Takeoff data</h2>
                 </div>
+
                 <div class="input-container">
-                    <label class="form-text" for="to-length">Takeoff runway length [ft]:</label>
-                    <input class="input-field" size="10" type="number" name="to-length" placeholder="Takeoff runway length in ft">
+                    <label class="form-text">Takeoff runway length [ft]:</label>
+                    {{ form.to_length|add_class:"input-field" }}
+                    <p class="error">{{ form.to_length.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="to-condition">Takeoff runway condition:</label>
-                    PD<input type="radio" name="to-condition" value="PD" checked>
-                    GD<input type="radio" name="to-condition" value="GD">
+                    <label class="form-text">Takeoff runway condition:</label>
+                    {{ form.to_condition|add_class:"radio-input-field" }}
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="to-altitude">Takeoff pressure altitude [ft]:</label>
-                    <input class="input-field" type="number" name="to-altitude" placeholder="Takeoff pressure altitude in ft">
+                    <label class="form-text">Takeoff pressure altitude [ft]:</label>
+                    {{ form.to_press_alt|add_class:"input-field" }}
+                    <p class="error">{{ form.to_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="to-temp">Takeoff temperature [°C]:</label>
-                    <input class="input-field" type="number" name="to-temp" placeholder="Takeoff temperature in °C">
+                    <label class="form-text">Takeoff temperature [°C]:</label>
+                    {{ form.to_temp|add_class:"input-field" }}
+                    <p class="error">{{ form.to_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="to-wind-speed">Takeoff wind speed [kts]:</label>
-                    <input class="input-field" type="number" name="to-wind-speed" placeholder="Takeoff wind speed in knots">
+                    <label class="form-text">Takeoff wind speed [kts]:</label>
+                    {{ form.to_wind_speed|add_class:"input-field" }}
+                    <p class="error">{{ form.to_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="to-wind-direction">Takeoff wind direction:</label>
-                    H<input type="radio" name="to-wind-direction" value="H" checked>
-                    T<input type="radio" name="to-wind-direction" value="T">
+                    <label class="form-text">Takeoff wind direction:</label>
+                    {{ form.to_wind_direction|add_class:"radio-input-field" }}
                 </div>
 
                 <!-- Cruise data -->
                 <div class="sub-header">
                     <h2 class="form-text">Cruise data</h2>
                 </div>
+
                 <div class="input-container">
-                    <label class="form-text" for="travel-distance">Travel distance [nm]:</label>
-                    <input class="input-field" type="number" name="travel-distance" placeholder="Travel distance in nautical miles">
+                    <label class="form-text">Travel distance [nm]:</label>
+                    {{ form.travel_dist|add_class:"input-field" }}
+                    <p class="error">{{ form.travel_dist.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="cruise-altitude">Cruise altitude [ft]:</label>
-                    <input class="input-field" type="number" name="cruise-altitude" placeholder="Cruise altitude in ft">
+                    <label class="form-text">Cruise altitude [ft]:</label>
+                    {{ form.cr_press_alt|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="cruise-temperature">Cruise temperature [°C]:</label>
-                    <input class="input-field" type="number" name="cruise-temperature" placeholder="Cruise temperature in °C">
+                    <label class="form-text">Cruise temperature [°C]:</label>
+                    {{ form.cr_temp|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="cruise-wind-speed">Cruise wind speed [kts]:</label>
-                    <input class="input-field" type="number" name="cruise-wind-speed" placeholder="Cruise wind speed in knots">
+                    <label class="form-text">Cruise wind speed [kts]:</label>
+                    {{ form.cr_wind_speed|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="cruise-wind-direction">Cruise wind direction:</label>
-                    H<input type="radio" name="cruise-wind-direction" value="H" checked>
-                    T<input type="radio" name="cruise-wind-direction" value="T">
+                    <label class="form-text">Cruise wind direction:</label>
+                    <p class="class">{{ form.cr_wind_direction|add_class:"radio-input-field" }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="cruise-power-setting">Cruise power setting [rpm]:</label>
-                    <input class="input-field" type="number" name="cruise-power-setting" placeholder="Cruise rpm">
+                    <label class="form-text">Cruise power [rpm]:</label>
+                    {{ form.cr_power|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_power.errors.as_text }}</p>
                 </div>
 
-                <!--Landing data-->
+                <!-- Landing data -->
                 <div class="sub-header">
                     <h2 class="form-text">Landing data</h2>
                 </div>
+
                 <div class="input-container">
-                    <label class="form-text" for="land-length">Landing runway length [ft]:</label>
-                    <input class="input-field" type="number" name="land-length" placeholder="Landing runway length in ft">
+                    <label class="form-text">Landing runway length [ft]:</label>
+                    {{ form.land_length|add_class:"input-field" }}
+                    <p class="error">{{ form.land_length.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="land-condition">Landing runway condition:</label>
-                    PD<input type="radio" name="to-condition" value="PD" checked>
-                    GD<input type="radio" name="to-condition" value="GD">
+                    <label class="form-text">Landing runway condition:</label>
+                    {{ form.land_condition|add_class:"radio-input-field" }}
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="land-altitude">Landing pressure altitude [ft]:</label>
-                    <input class="input-field" type="number" name="land-altitude" placeholder="Landing pressure altitude in ft">
+                    <label class="form-text">Landing pressure altitude [ft]:</label>
+                    {{ form.land_press_alt|add_class:"input-field" }}
+                    <p class="error">{{ form.land_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="land-temp">Landing temperature [°C]:</label>
-                    <input class="input-field" type="number" name="land-temp" placeholder="Landing temperature in °C">
+                    <label class="form-text">Landing temperature [°C]:</label>
+                    {{ form.land_temp|add_class:"input-field" }}
+                    <p class="error">{{ form.land_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="land-wind-speed">Landing wind speed [kts]:</label>
-                    <input class="input-field" type="number" name="land-wind-speed" placeholder="Landing wind speed in knots">
+                    <label class="form-text">Landing wind speed [kts]:</label>
+                    {{ form.land_wind_speed|add_class:"input-field" }}
+                    <p class="error">{{ form.land_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text" for="land-wind-direction">Landing wind direction:</label>
-                    H<input type="radio" name="land-wind-direction" value="H" checked>
-                    T<input type="radio" name="land-wind-direction" value="T">
+                    <label class="form-text">Landing wind direction:</label>
+                    {{ form.land_wind_direction|add_class:"radio-input-field" }}
                 </div>
 
                 <button class="submit-button" type="submit" name="submit">Compute</button>
-
             </form>
         </div>
     </body>

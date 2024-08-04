@@ -6,4 +6,5 @@ app_name = 'performance'
 
 urlpatterns = [
     path("", views.data_input, name="input"),
+    path("output", views.data_output, name="output"),
 ]
