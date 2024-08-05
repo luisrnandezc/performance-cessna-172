@@ -16,15 +16,15 @@ import pandas as pd
 import openpyxl
 
 
-if __name__ == '__main__':
-    # Read input and output path.
-    path = input("Ubicación del archivo de datos: ")
+input_data = None
 
-    # Read input data.
-    input_file = open(path + '\\' + 'input.txt', 'r')
+
+def compute_performance(input_data):
+
+    # TODO: Extract data for cleaning.
 
     # Check input data.
-    input_data = input_check.check_input_data(input_file)
+    input_data = input_check.check_input_data(input_data)
 
     # Store performance data.
     performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\data'
@@ -60,8 +60,15 @@ if __name__ == '__main__':
     # Compute landing performance.
     land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
 
-    # Generate performance file.
+    # Store results.
+    # TODO: transform this to a dict.
     results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
                max_endurance, max_range, fuel_required, fuel_reserve,
                land_ground_roll, land_fifty_roll]
-    output_data = output.write_output_file(results, path)
+
+    return results
+
+
+if __name__ == '__main__':
+    compute_performance(input_data)
+    
