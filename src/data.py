@@ -224,16 +224,14 @@ def valid_landing_temp(landing_temp):
 
 
 def update_input_data(input_data, data_to_update, values_to_update):
-    """Returns the updated input_data with the validated values"""
+    """Updates input_data with the validated values"""
     for (key, value) in zip(data_to_update, values_to_update):
         input_data[key] = value
-    return input_data
+    return None
 
 
 def convert_to_integer(input_data):
-    """Returns an updated version of input_data in which
-    the numeric strings values are converted to integers.
-    """
+    """Converts input_data numeric strings values to integers."""
     for data in input_data:
         value = input_data[data]
         if type(value) == str:
@@ -241,33 +239,35 @@ def convert_to_integer(input_data):
                 input_data[data] = int(value)
             except ValueError:
                 continue
-    return input_data
+    return None
 
 
 def compute_valid_performance_data(input_data, power_df):
     # Takeoff data.
-    takeoff_weight = valid_takeoff_weight(int(input_data['TOWG']))
-    takeoff_press_alt = valid_takeoff_press_alt(int(input_data['TOPA']))
-    takeoff_temp = valid_takeoff_temp(int(input_data['TOT']))
-    real_takeoff_temp = int(input_data['TOT'])
+    takeoff_weight = valid_takeoff_weight(int(input_data['to_weight']))
+    takeoff_press_alt = valid_takeoff_press_alt(int(input_data['to_press_alt']))
+    takeoff_temp = valid_takeoff_temp(int(input_data['to_temp']))
+    real_takeoff_temp = int(input_data['to_temp'])
     # Climb data.
-    roc_press_alt = valid_roc_press_alt(int(input_data['TOPA']))
-    roc_temp = valid_roc_temp(int(input_data['TOT']))
+    roc_press_alt = valid_roc_press_alt(int(input_data['to_press_alt']))
+    roc_temp = valid_roc_temp(int(input_data['to_temp']))
     # Cruise data.
-    real_press_alt = int(input_data['CRPA'])
+    real_press_alt = int(input_data['cr_press_alt'])
     cruise_press_alt_500 = valid_cruise_press_alt_500(real_press_alt)
     cruise_press_alt_1000 = valid_cruise_press_alt_1000(real_press_alt)
     cruise_power_press_alt = valid_cruise_power_press_alt(real_press_alt)
-    cruise_rpm = valid_cruise_rpm(power_df, cruise_power_press_alt, int(input_data['RPM']))
+    cruise_rpm = valid_cruise_rpm(power_df, cruise_power_press_alt, int(input_data['cr_power']))
     # Landing data.
-    landing_press_alt = valid_landing_press_alt(int(input_data['LDPA']))
-    landing_temp = valid_landing_temp(int(input_data['LDT']))
+    landing_press_alt = valid_landing_press_alt(int(input_data['land_press_alt']))
+    landing_temp = valid_landing_temp(int(input_data['land_temp']))
     # Update the original input data with the validated data.
-    data_to_update = ['TOWG', 'TOPA', 'TOT', 'RTOT', 'ROCPA', 'ROCT', 'CRPA5', 'CRPA10', 'CRPPA', 'RPM', 'LDPA', 'LDT']
+    data_to_update = ['to_weight', 'to_press_alt', 'to_temp', 'real_to_temp', 'roc_press_alt', 'roc_temp',
+                      'cr_press_alt_500', 'cr_press_alt_1000', 'cr_power_press_alt', 'cr_rpm',
+                      'land_press_alt', 'land_temp']
     values_to_update = [takeoff_weight, takeoff_press_alt, takeoff_temp, real_takeoff_temp, roc_press_alt, roc_temp,
                         cruise_press_alt_500, cruise_press_alt_1000, cruise_power_press_alt, cruise_rpm,
                         landing_press_alt, landing_temp]
-    input_data = update_input_data(input_data, data_to_update, values_to_update)
+    update_input_data(input_data, data_to_update, values_to_update)
     # The values in input_data are converted to integers to facilitate later computations.
-    input_data = convert_to_integer(input_data)
-    return input_data
+    convert_to_integer(input_data)
+    return None

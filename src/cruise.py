@@ -126,14 +126,14 @@ def range_wind_correction(wind, endurance, max_range):
 
 
 def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
-    press_alt_500 = input_data['CRPA5']
-    press_alt_1000 = input_data['CRPA10']
-    temp = input_data['CRT']
+    press_alt_500 = input_data['cr_press_alt_500']
+    press_alt_1000 = input_data['cr_press_alt_1000']
+    temp = input_data['cr_temp']
     # Compute standard temperature difference.
     std_temp_difference = compute_standard_temperature_difference(press_alt_1000, temp)
     # Compute values required by the cruise power setting table.
-    power_press_alt = input_data['CRPPA']
-    rpm = input_data['RPM']
+    power_press_alt = input_data['cr_power_press_alt']
+    rpm = input_data['cr_rpm']
     # Checks for invalid combinations of RPM and pressure altitude
     if std_temp_difference == 'isa_m20':
         check_for_invalid_data(power_press_alt, rpm)
@@ -143,5 +143,5 @@ def compute_cruise_performance(input_data, power_df, range_df, endurance_df):
     max_endurance = compute_endurance(press_alt_500, power, endurance_df)
     max_range = compute_range(press_alt_500, power, range_df)
     # Range correction because of wind.
-    max_range = range_wind_correction(input_data['CRW'], max_endurance, max_range)
+    max_range = range_wind_correction(input_data['cr_wind_speed'], max_endurance, max_range)
     return max_endurance, max_range, velocity, fuel_flow

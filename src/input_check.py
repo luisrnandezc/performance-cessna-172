@@ -23,16 +23,16 @@ DESCRIPTION:
 import sys
 
 # Error messages.
-msg_error_invalid_value = 'ERROR: el valor introducido es inválido.'
-msg_error_negative_value = 'ERROR: el valor introducido no puede ser negativo.'
-msg_error_excessive_value = 'ERROR: el valor introducido es muy alto.'
-msg_error_low_value = 'ERROR: el valor introducido es muy bajo.'
+msg_error_invalid_value = "ERROR: invalid value."
+msg_error_negative_value = "ERROR: the value can't be negative."
+msg_error_big_value = "ERROR: the value is too big."
+msg_error_small_value = "ERROR: the value is to small."
 
 
 def check_if_value_is_numeric(value):
     """Returns True if the argument is a number, False otherwise."""
     try:
-        value = int(value)
+        int(value)
     except ValueError:
         return False
     return True
@@ -54,10 +54,8 @@ def check_take_off_weight(to_weight):
         sys.exit('Takeoff weight | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(to_weight) is True:
         sys.exit('Takeoff weight | ' + msg_error_negative_value)
-    elif int(to_weight) > 2300:
-        sys.exit('Peso de despegue | ERROR: el peso introducido es mayor al peso máximo.')
-    elif int(to_weight) < 1397:
-        sys.exit('Peso de despegue | ERROR: el peso introducido es menor al peso vacío estándar.')
+    elif int(to_weight) < 1397 or int(to_weight) > 2300:
+        sys.exit('Takeoff weight | ERROR: The weight must be between 1397 and 2300 pounds.')
     else:
         return None
 
@@ -68,9 +66,9 @@ def check_fuel_capacity(fuel_capacity):
     otherwise the program stops with a pertinent error message.
     """
     if check_if_value_is_numeric(fuel_capacity) is False:
-        sys.exit('Fuel Capacity | ' + msg_error_invalid_value)
+        sys.exit('Fuel capacity | ' + msg_error_invalid_value)
     elif int(fuel_capacity) != 40 and int(fuel_capacity) != 50:
-        sys.exit('Fuel Capacity | ' + msg_error_invalid_value)
+        sys.exit('Fuel capacity | ' + msg_error_invalid_value)
     else:
         return None
 
@@ -82,9 +80,7 @@ def check_runway_length(rwy_length):
     """
     if check_if_value_is_numeric(rwy_length) is False:
         sys.exit('The runway length | ' + msg_error_invalid_value)
-    elif check_if_value_is_negative(rwy_length) is True:
-        sys.exit('The runway length | ' + msg_error_negative_value)
-    elif int(rwy_length) == 0:
+    elif int(rwy_length) <= 0:
         sys.exit('The runway length | ' + msg_error_invalid_value)
     else:
         return None
@@ -109,10 +105,8 @@ def check_pressure_altitude(press_altitude):
     """
     if check_if_value_is_numeric(press_altitude) is False:
         sys.exit('Pressure altitude | ' + msg_error_invalid_value)
-    elif check_if_value_is_negative(press_altitude) is True:
-        sys.exit('Pressure altitude | ' + msg_error_negative_value)
-    elif int(press_altitude) > 14200:
-        sys.exit('Pressure altitude | Error: el valor introducido es mayor al Techo de Servicio.')
+    elif int(press_altitude) < 0 or int(press_altitude) > 14200:
+        sys.exit('Pressure altitude | ERROR: The pressure altitude must be between 0 and 14200 feets.')
     else:
         return None
 
@@ -124,33 +118,35 @@ def check_temperature(temperature):
     """
     if check_if_value_is_numeric(temperature) is False:
         sys.exit('Temperature | ' + msg_error_invalid_value)
-    elif int(temperature) > 40:
-        sys.exit('Temperature | ' + msg_error_excessive_value)
-    elif int(temperature) < -20:
-        sys.exit('Temperature | ' + msg_error_low_value)
+    elif int(temperature) < -20 or int(temperature) > 40:
+        sys.exit('Temperature | ERROR: The temperature must be between -20 and 40 degrees Celsius.')
     else:
         return None
 
 
-def check_wind(wind):
+def check_wind_speed(wind_speed):
     """
-    Returns None if the argument is a valid wind value,
+    Returns None if the argument is a valid wind speed,
     otherwise the program stops with a pertinent error message.
     """
-    if wind == '0':
+    if int(wind_speed) == 0:
         return None
-    if len(wind) != 3:
-        sys.exit('Takeoff wind | ' + msg_error_invalid_value)
-    knots = wind[0:2]
-    direction = wind[-1]
-    if check_if_value_is_numeric(knots) is False:
-        sys.exit('Wind | ' + msg_error_invalid_value)
-    elif check_if_value_is_negative(knots) is True:
-        sys.exit('Wind | ' + msg_error_negative_value)
-    elif direction != 'H' and direction != 'T':
-        sys.exit('Wind | ' + msg_error_invalid_value)
+    elif check_if_value_is_numeric(wind_speed) is False:
+        sys.exit('Wind speed | ' + msg_error_invalid_value)
+    elif wind_speed < 0 or wind_speed > 50:
+        sys.exit('Wind speed | ERROR: The wind speed must be between 0 and 50 knots.')
     else:
         return None
+
+
+def check_wind_direction(wind_direction):
+    """
+    Returns None if the argument is a valid wind direction,
+    otherwise the program stops with a pertinent error message.
+    """
+    if wind_direction != 'H' and wind_direction != 'T':
+        sys.exit('Wind direction | ' + msg_error_invalid_value)
+    return None
 
 
 def check_travel_distance(travel_distance):
@@ -162,6 +158,8 @@ def check_travel_distance(travel_distance):
         sys.exit('Travel distance | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(travel_distance) is True:
         sys.exit('Travel distance | ' + msg_error_negative_value)
+    elif travel_distance < 0 or travel_distance > 750:
+        sys.exit('Travel distance | ERROR: The distance must be between 0 and 750 nautical miles.')
     else:
         return None
 
@@ -173,15 +171,13 @@ def check_cruise_rpm(cr_rpm):
     """
     if check_if_value_is_numeric(cr_rpm) is False:
         sys.exit('Cruise rpm | ' + msg_error_invalid_value)
-    cr_rpm = int(cr_rpm)
-    if cr_rpm < 2100:
-        sys.exit('Cruise rpm | ' + msg_error_low_value + ' El valor mínimo es 2100 rpm.')
-    elif cr_rpm > 2650:
-        sys.exit('Cruise rpm | ' + msg_error_excessive_value + ' El valor máximo es 2650 rpm.')
-    return None
+    elif cr_rpm < 2100 or cr_rpm > 2650:
+        sys.exit('Cruise rpm | ERROR: The rpm must be between 2100 and 2650.')
+    else:
+        return None
 
 
-def check_input_data(file):
+def check_input_data(input_data):
     """
     Checks the validity of the data entered by the user.
 
@@ -191,44 +187,35 @@ def check_input_data(file):
         indicating the source of the error.
 
     Args:
-        file: file containing the raw user input data.
+        input_data: dict containing the raw user input data.
 
     Returns:
         input_data: dictionary of validated input data.
     """
 
-    # Read the data.
-    lines = file.readlines()
-    values = []
-    for line in lines:
-        line = line[:-1]
-        values.append(line.upper())
-    # Store data into a dictionary.
-    keys = ['TOWG', 'FC', 'TOL', 'TOC', 'TOPA', 'TOT', 'TOW',
-            'TD', 'CRPA', 'CRT', 'CRW', 'RPM',
-            'LDL', 'LDC', 'LDPA', 'LDT', 'LDW']
-    input_data = {key: value for (key, value) in zip(keys, values)}
-
     # Check general data.
-    check_take_off_weight(input_data['TOWG'])
-    check_fuel_capacity(input_data['FC'])
+    check_take_off_weight(input_data['to_weight'])
+    check_fuel_capacity(input_data['fuel_capacity'])
     # Check takeoff data.
-    check_runway_length(input_data['TOL'])
-    check_runway_condition(input_data['TOC'])
-    check_pressure_altitude(input_data['TOPA'])
-    check_temperature(input_data['TOT'])
-    check_wind(input_data['TOW'])
+    check_runway_length(input_data['to_length'])
+    check_runway_condition(input_data['to_condition'])
+    check_pressure_altitude(input_data['to_press_alt'])
+    check_temperature(input_data['to_temp'])
+    check_wind_speed(input_data['to_wind_speed'])
+    check_wind_direction(input_data['to_wind_direction'])
     # Check cruise data.
-    check_travel_distance(input_data['TD'])
-    check_pressure_altitude(input_data['CRPA'])
-    check_temperature(input_data['CRT'])
-    check_wind(input_data['CRW'])
-    check_cruise_rpm(input_data['RPM'])
+    check_travel_distance(input_data['travel_dist'])
+    check_pressure_altitude(input_data['cr_press_alt'])
+    check_temperature(input_data['cr_temp'])
+    check_wind_speed(input_data['cr_wind_speed'])
+    check_wind_direction(input_data['cr_wind_direction'])
+    check_cruise_rpm(input_data['cr_power'])
     # Check landing data.
-    check_runway_length(input_data['LDL'])
-    check_runway_condition(input_data['LDC'])
-    check_pressure_altitude(input_data['LDPA'])
-    check_temperature(input_data['LDT'])
-    check_wind(input_data['LDW'])
+    check_runway_length(input_data['land_length'])
+    check_runway_condition(input_data['land_condition'])
+    check_pressure_altitude(input_data['land_press_alt'])
+    check_temperature(input_data['land_temp'])
+    check_wind_speed(input_data['land_wind_speed'])
+    check_wind_direction(input_data['land_wind_direction'])
 
     return input_data

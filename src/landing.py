@@ -97,14 +97,14 @@ def correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
 
 
 def compute_landing_performance(input_data, landing_df):
-    press_alt = input_data['LDPA']
-    temp = input_data['LDT']
+    press_alt = input_data['land_press_alt']
+    temp = input_data['land_temp']
     # Read the landing distance from the table.
     ground_roll, fifty_ft_roll = compute_landing_ground_roll(press_alt, temp, landing_df)
     # Correct landing distance for wind.
-    wind = input_data['LDW']
+    wind = input_data['land_wind_speed']
     ground_roll, fifty_ft_roll = correct_distance_for_wind(ground_roll, fifty_ft_roll, wind)
     # Correct landing distance for runway condition.
-    condition = input_data['LDC']
+    condition = input_data['land_condition']
     ground_roll, fifty_ft_roll = correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
     return ground_roll, fifty_ft_roll

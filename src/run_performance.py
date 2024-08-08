@@ -11,12 +11,7 @@ import takeoff
 import cruise
 import fuel
 import landing
-import output
 import pandas as pd
-import openpyxl
-
-
-input_data = None
 
 
 def compute_performance(input_data):
@@ -37,10 +32,9 @@ def compute_performance(input_data):
     endurance40_df = pd.read_csv(performance_path + '\\' + 'endurance40.csv', index_col=0)
     endurance50_df = pd.read_csv(performance_path + '\\' + 'endurance50.csv', index_col=0)
     landing_df = pd.read_csv(performance_path + '\\' + 'landing.csv', index_col=1)
-    atm_df = pd.read_csv(performance_path + '\\' + 'atm.csv', index_col=1)
 
     # Generate valid performance data.
-    valid_data = data.compute_valid_performance_data(input_data, power_df)
+    data.compute_valid_performance_data(input_data, power_df)
 
     # Compute takeoff performance.
     takeoff_ground_roll, takeoff_fifty_ft_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
@@ -70,5 +64,6 @@ def compute_performance(input_data):
 
 
 if __name__ == '__main__':
-    compute_performance(input_data)
+    # TODO: add testing functionality.
+    print("Run directly")
     

@@ -113,19 +113,19 @@ def compute_takeoff_roc(press_alt, roc_temp, roc_df):
 
 
 def compute_takeoff_performance(input_data, takeoff_df, roc_df):
-    weight = input_data['TOWG']
-    press_alt = input_data['TOPA']
-    temp = input_data['TOT']
+    weight = input_data['to_weight']
+    press_alt = input_data['to_press_alt']
+    temp = input_data['to_temp']
     # Read the takeoff distance from the table.
     ground_roll, fifty_ft_roll = compute_takeoff_ground_roll(weight, press_alt, temp, takeoff_df)
     # Correct takeoff distance for wind.
-    wind = input_data['TOW']
+    wind = input_data['to_wind_speed']
     ground_roll, fifty_ft_roll = correct_distance_for_wind(ground_roll, fifty_ft_roll, wind)
     # Correct takeoff distance for runway condition.
-    condition = input_data['TOC']
+    condition = input_data['to_condition']
     ground_roll, fifty_ft_roll = correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
     # Compute takeoff rate of climb.
-    roc_press_alt = input_data['ROCPA']
-    roc_temp = input_data['ROCT']
+    roc_press_alt = input_data['roc_press_alt']
+    roc_temp = input_data['roc_temp']
     roc = compute_takeoff_roc(roc_press_alt, roc_temp, roc_df)
     return ground_roll, fifty_ft_roll, roc

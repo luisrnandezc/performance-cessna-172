@@ -105,21 +105,21 @@ def compute_ground_speed(velocity, wind):
 
 def compute_fuel_required(input_data, climb_df, velocity, fuel_flow):
     # First we need to compute the time, fuel and distance to climb from SL.
-    takeoff_press_alt = input_data['TOPA']
-    takeoff_temp = input_data['RTOT']
+    takeoff_press_alt = input_data['to_press_alt']
+    takeoff_temp = input_data['real_to_temp']
     takeoff_climb_data = compute_climb_data(takeoff_press_alt, takeoff_temp, climb_df)
-    cruise_press_alt = input_data['CRPA10']
-    cruise_temp = input_data['CRT']
+    cruise_press_alt = input_data['cr_press_alt_1000']
+    cruise_temp = input_data['cr_temp']
     cruise_climb_data = compute_climb_data(cruise_press_alt, cruise_temp, climb_df)
     # Now the climb data from takeoff to cruise altitude can be computed.
     climb_data = tuple(map(lambda i, j: round(i - j, 1), cruise_climb_data, takeoff_climb_data))
     # Computation of the total fuel required.
-    cruise_distance = int(round(input_data['TD'] - climb_data[2], 0))
-    ground_speed = compute_ground_speed(velocity, input_data['CRW'])
+    cruise_distance = int(round(input_data['travel_dist'] - climb_data[2], 0))
+    ground_speed = compute_ground_speed(velocity, input_data['cr_wind_speed'])
     # The cruise time can be now computed using the cruise distance and the ground speed.
     cruise_time = round(cruise_distance/ground_speed, 1)
     # Finally, the total fuel consumption is computed.
     cruise_fuel = round(cruise_time*fuel_flow, 1)
     total_fuel_required = 1.1 + climb_data[1] + cruise_fuel
-    fuel_reserve = round(input_data['FC'] - total_fuel_required, 1)
+    fuel_reserve = round(input_data['fuel_capacity'] - total_fuel_required, 1)
     return total_fuel_required, fuel_reserve

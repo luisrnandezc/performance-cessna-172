@@ -8,7 +8,7 @@ from .forms import PerformanceData
 # Add the path to the scripts directory
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
-import run_performance
+from src import run_performance
 
 
 # App views.
