@@ -38,12 +38,15 @@ import bisect
 
 def valid_takeoff_weight(takeoff_weight):
     """Returns the corrected takeoff weight."""
-    if takeoff_weight <= 1900:
-        return 1900
-    elif takeoff_weight <= 2100:
-        return 2100
-    else:
-        return 2300
+    valid_weight = list(range(1900, 2500, 200))
+    max_weight = valid_weight[-1]
+    for valid_weight in valid_weight:
+        if takeoff_weight == valid_weight:
+            return valid_weight
+        elif takeoff_weight >= valid_weight + 50:
+            continue
+        else:
+            return valid_weight
 
 
 def valid_takeoff_press_alt(takeoff_press_alt):
@@ -69,8 +72,8 @@ def valid_takeoff_temp(takeoff_temp):
         return min_temp
     for valid_temp in valid_temperatures:
         if takeoff_temp == valid_temp:
-            return takeoff_temp
-        elif takeoff_temp >= valid_temp + 4:
+            return valid_temp
+        elif takeoff_temp >= valid_temp + 5:
             continue
         else:
             return valid_temp
@@ -99,8 +102,8 @@ def valid_roc_temp(takeoff_temp):
         return min_temp
     for valid_temp in valid_temperatures:
         if takeoff_temp == valid_temp:
-            return takeoff_temp
-        elif takeoff_temp >= valid_temp + 5:
+            return valid_temp
+        elif takeoff_temp >= valid_temp + 10:
             continue
         else:
             return valid_temp
@@ -114,14 +117,13 @@ def valid_cruise_press_alt_500(cruise_press_alt):
     max_alt = valid_altitudes[-1]
     if cruise_press_alt > max_alt:
         return max_alt
-    else:
-        for valid_alt in valid_altitudes:
-            if cruise_press_alt == valid_alt:
-                return valid_alt
-            elif cruise_press_alt >= valid_alt + 250:
-                continue
-            else:
-                return valid_alt
+    for valid_alt in valid_altitudes:
+        if cruise_press_alt == valid_alt:
+            return valid_alt
+        elif cruise_press_alt >= valid_alt + 250:
+            continue
+        else:
+            return valid_alt
 
 
 def valid_cruise_press_alt_1000(cruise_press_alt):
@@ -132,14 +134,13 @@ def valid_cruise_press_alt_1000(cruise_press_alt):
     max_alt = valid_altitudes[-1]
     if cruise_press_alt > max_alt:
         return max_alt
-    else:
-        for valid_alt in valid_altitudes:
-            if cruise_press_alt == valid_alt:
-                return valid_alt
-            elif cruise_press_alt >= valid_alt + 250:
-                continue
-            else:
-                return valid_alt
+    for valid_alt in valid_altitudes:
+        if cruise_press_alt == valid_alt:
+            return valid_alt
+        elif cruise_press_alt >= valid_alt + 250:
+            continue
+        else:
+            return valid_alt
 
 
 def valid_cruise_power_press_alt(cruise_press_alt):
@@ -150,14 +151,13 @@ def valid_cruise_power_press_alt(cruise_press_alt):
     max_alt = valid_altitudes[-1]
     if cruise_press_alt > max_alt:
         return max_alt
-    else:
-        for valid_alt in valid_altitudes:
-            if cruise_press_alt == valid_alt:
-                return valid_alt
-            elif cruise_press_alt >= valid_alt + 500:
-                continue
-            else:
-                return valid_alt
+    for valid_alt in valid_altitudes:
+        if cruise_press_alt == valid_alt:
+            return valid_alt
+        elif cruise_press_alt >= valid_alt + 500:
+            continue
+        else:
+            return valid_alt
 
 
 def compute_valid_rpm_for_cruise_altitudes(power_df):
@@ -185,8 +185,7 @@ def valid_cruise_rpm(power_df, cruise_power_press_alt, cruise_rpm):
     high_rpm = rpm_values[rpm_index+1]
     if cruise_rpm < (high_rpm + low_rpm)/2:
         return low_rpm
-    else:
-        return high_rpm
+    return high_rpm
 
 
 def valid_landing_press_alt(landing_press_alt):
@@ -216,8 +215,8 @@ def valid_landing_temp(landing_temp):
         return min_temp
     for valid_temp in valid_temperatures:
         if landing_temp == valid_temp:
-            return landing_temp
-        elif landing_temp >= valid_temp + 4:
+            return valid_temp
+        elif landing_temp >= valid_temp + 5:
             continue
         else:
             return valid_temp
@@ -230,44 +229,30 @@ def update_input_data(input_data, data_to_update, values_to_update):
     return None
 
 
-def convert_to_integer(input_data):
-    """Converts input_data numeric strings values to integers."""
-    for data in input_data:
-        value = input_data[data]
-        if type(value) == str:
-            try:
-                input_data[data] = int(value)
-            except ValueError:
-                continue
-    return None
-
-
 def compute_valid_performance_data(input_data, power_df):
     # Takeoff data.
-    takeoff_weight = valid_takeoff_weight(int(input_data['to_weight']))
-    takeoff_press_alt = valid_takeoff_press_alt(int(input_data['to_press_alt']))
-    takeoff_temp = valid_takeoff_temp(int(input_data['to_temp']))
-    real_takeoff_temp = int(input_data['to_temp'])
+    takeoff_weight = valid_takeoff_weight(input_data['to_weight'])
+    takeoff_press_alt = valid_takeoff_press_alt(input_data['to_press_alt'])
+    takeoff_temp = valid_takeoff_temp(input_data['to_temp'])
+    real_takeoff_temp = input_data['to_temp']
     # Climb data.
-    roc_press_alt = valid_roc_press_alt(int(input_data['to_press_alt']))
-    roc_temp = valid_roc_temp(int(input_data['to_temp']))
+    roc_press_alt = valid_roc_press_alt(input_data['to_press_alt'])
+    roc_temp = valid_roc_temp(input_data['to_temp'])
     # Cruise data.
-    real_press_alt = int(input_data['cr_press_alt'])
+    real_press_alt = input_data['cr_press_alt']
     cruise_press_alt_500 = valid_cruise_press_alt_500(real_press_alt)
     cruise_press_alt_1000 = valid_cruise_press_alt_1000(real_press_alt)
     cruise_power_press_alt = valid_cruise_power_press_alt(real_press_alt)
-    cruise_rpm = valid_cruise_rpm(power_df, cruise_power_press_alt, int(input_data['cr_power']))
+    cruise_power = valid_cruise_rpm(power_df, cruise_power_press_alt, input_data['cr_power'])
     # Landing data.
-    landing_press_alt = valid_landing_press_alt(int(input_data['land_press_alt']))
-    landing_temp = valid_landing_temp(int(input_data['land_temp']))
+    landing_press_alt = valid_landing_press_alt(input_data['land_press_alt'])
+    landing_temp = valid_landing_temp(input_data['land_temp'])
     # Update the original input data with the validated data.
     data_to_update = ['to_weight', 'to_press_alt', 'to_temp', 'real_to_temp', 'roc_press_alt', 'roc_temp',
-                      'cr_press_alt_500', 'cr_press_alt_1000', 'cr_power_press_alt', 'cr_rpm',
+                      'cr_press_alt_500', 'cr_press_alt_1000', 'cr_power_press_alt', 'cr_power',
                       'land_press_alt', 'land_temp']
     values_to_update = [takeoff_weight, takeoff_press_alt, takeoff_temp, real_takeoff_temp, roc_press_alt, roc_temp,
-                        cruise_press_alt_500, cruise_press_alt_1000, cruise_power_press_alt, cruise_rpm,
+                        cruise_press_alt_500, cruise_press_alt_1000, cruise_power_press_alt, cruise_power,
                         landing_press_alt, landing_temp]
     update_input_data(input_data, data_to_update, values_to_update)
-    # The values in input_data are converted to integers to facilitate later computations.
-    convert_to_integer(input_data)
     return None

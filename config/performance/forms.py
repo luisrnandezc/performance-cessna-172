@@ -148,7 +148,7 @@ class PerformanceData(forms.Form):
 
     def clean_land_wind_speed(self):
         data = self.cleaned_data['land_wind_speed']
-        if data < 0:
-            raise ValidationError(_('Invalid value - The wind speed must be a positive value'))
+        if data < 0 or data > 35:
+            raise ValidationError(_('Invalid value - The wind speed must be between 0 and 35 knots'))
         return data
         

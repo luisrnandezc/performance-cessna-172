@@ -10,7 +10,17 @@
 
     <body>
         <div>
-            <h1 class="output-header">Data output</h1>
+            <h3 class="output-header">Data output</h3>
+        </div>
+        <div class="output-data-container">
+            <p class="output-data">Takeoff ground roll: {{ performance_data.to_roll }}</p>
+            <p class="output-data">Takeoff 50 ft ground roll: {{ performance_data.to_50_roll }}</p>
+            <p class="output-data">Endurance: {{ performance_data.max_endurance }}</p>
+            <p class="output-data">Range: {{ performance_data.max_range }}</p>
+            <p class="output-data">Fuel required: {{ performance_data.fuel_required }}</p>
+            <p class="output-data">Fuel reserve: {{ performance_data.fuel_reserve }}</p>
+            <p class="output-data">Landing ground roll: {{ performance_data.land_roll }}</p>
+            <p class="output-data">Landing 50 ft ground roll: {{ performance_data.land_50_roll }}</p>
         </div>
     </body>
 </html>

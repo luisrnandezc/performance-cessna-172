@@ -37,29 +37,30 @@ def compute_performance(input_data):
     data.compute_valid_performance_data(input_data, power_df)
 
     # Compute takeoff performance.
-    takeoff_ground_roll, takeoff_fifty_ft_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
+    to_roll, to_50_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
 
     # Compute cruise performance.
-    if input_data['FC'] == 40:
+    if input_data['fuel_capacity'] == '40':
         range_df = range40_df
         endurance_df = endurance40_df
     else:
         range_df = range50_df
         endurance_df = endurance50_df
-    max_endurance, max_range, velocity, fuel_flow = cruise.compute_cruise_performance(input_data, power_df, range_df, endurance_df)
+    max_endurance, max_range, ktas, fuel_flow = cruise.compute_cruise_performance(input_data, power_df, range_df, endurance_df)
 
     # Compute fuel required.
-    fuel_required, fuel_reserve = fuel.compute_fuel_required(input_data, climb_df, velocity, fuel_flow)
+    fuel_required, fuel_reserve = fuel.compute_fuel_required(input_data, climb_df, ktas, fuel_flow)
 
     # Compute landing performance.
-    land_ground_roll, land_fifty_roll = landing.compute_landing_performance(input_data, landing_df)
+    land_roll, land_50_roll = landing.compute_landing_performance(input_data, landing_df)
 
     # Store results.
     # TODO: transform this to a dict.
-    results = [takeoff_ground_roll, takeoff_fifty_ft_roll,
-               max_endurance, max_range, fuel_required, fuel_reserve,
-               land_ground_roll, land_fifty_roll]
-
+    keys = ['to_roll', 'to_50_roll', 'max_endurance', 'max_range', 'fuel_required', 'fuel_reserve', 'land_roll', 'land_50_roll']
+    values = [to_roll, to_50_roll, max_endurance, max_range, fuel_required, fuel_reserve, land_roll, land_50_roll]
+    results = {}
+    for (key, value) in zip(keys, values):
+        results[key] = value
     return results
 
 

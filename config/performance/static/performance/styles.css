@@ -95,6 +95,11 @@ button:hover {
     color: #000000;
 }
 
+.output-data {
+    color: #000000;
+    letter-spacing: 1px;
+}
+
 /* Responsive design */
 
 @media screen and (max-width: 1070px) {
