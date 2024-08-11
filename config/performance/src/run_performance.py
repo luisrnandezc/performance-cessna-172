@@ -22,7 +22,7 @@ def compute_performance(input_data):
     input_data = input_check.check_input_data(input_data)
 
     # Store performance data.
-    performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\data'
+    performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\config\performance\src\data'
     takeoff_df = pd.read_csv(performance_path + '\\' + 'takeoff.csv')
     roc_df = pd.read_csv(performance_path + '\\' + 'roc.csv', index_col=0)
     climb_df = pd.read_csv(performance_path + '\\' + 'climb.csv', index_col=0)
@@ -55,7 +55,6 @@ def compute_performance(input_data):
     land_roll, land_50_roll = landing.compute_landing_performance(input_data, landing_df)
 
     # Store results.
-    # TODO: transform this to a dict.
     keys = ['to_roll', 'to_50_roll', 'max_endurance', 'max_range', 'fuel_required', 'fuel_reserve', 'land_roll', 'land_50_roll']
     values = [to_roll, to_50_roll, max_endurance, max_range, fuel_required, fuel_reserve, land_roll, land_50_roll]
     results = {}
