@@ -43,7 +43,7 @@ def compute_landing_ground_roll(press_alt, temp, landing_df):
     return ground_roll, fifty_ft_roll
 
 
-def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind):
+def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind_speed, wind_direction):
     """Returns the landing distances corrected for wind.
 
     This function corrects the minimum landing distances considering
@@ -52,27 +52,21 @@ def correct_distance_for_wind(ground_roll, fifty_ft_roll, wind):
     Args:
         ground_roll (int): minimum required landing distance.
         fifty_ft_roll (int): distance required to clear a 50 ft obstacle.
-        wind (str): landing wind component.
+        wind_speed (int): landing wind speed in knots.
+        wind_direction (str): landing wind direction.
 
     Returns:
         ground_roll (int): corrected minimum required landing distance.
         fifty_ft_roll (int): corrected distance required to clear a 50 ft obstacle.
     """
-    if wind != 0:
-        knots = wind[0:2]
-        direction = wind[-1]
-        if direction == 'H':
-            correction = round((int(knots)*0.1)/9, 2)
-            corrected_ground_roll = math.ceil(ground_roll - ground_roll*correction)
-            corrected_fifty_ft_roll = math.ceil(fifty_ft_roll - fifty_ft_roll*correction)
-            return corrected_ground_roll, corrected_fifty_ft_roll
+    if wind_speed != 0:
+        if wind_direction == 'H':
+            corr = -1*round((wind_speed*0.1)/9, 2)
         else:
-            correction = round((int(knots)*0.1)/2, 2)
-            corrected_ground_roll = math.ceil(ground_roll + ground_roll*correction)
-            corrected_fifty_ft_roll = math.ceil(fifty_ft_roll + fifty_ft_roll*correction)
-            return corrected_ground_roll, corrected_fifty_ft_roll
-    else:
-        return ground_roll, fifty_ft_roll
+            corr = round((wind_speed*0.1)/2, 2)
+        ground_roll = math.ceil(ground_roll + ground_roll*corr)
+        fifty_ft_roll = math.ceil(fifty_ft_roll + fifty_ft_roll*corr)
+    return ground_roll, fifty_ft_roll
 
 
 def correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition):
@@ -88,23 +82,22 @@ def correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
         fifty_ft_roll (int): corrected distance required to clear a 50 ft obstacle.
     """
     if condition == 'GD':
-        correction = round(ground_roll*0.45, 2)
-        corrected_ground_roll = math.ceil(ground_roll + correction)
-        corrected_fifty_ft_roll = math.ceil(fifty_ft_roll + correction)
-        return corrected_ground_roll, corrected_fifty_ft_roll
-    else:
-        return ground_roll, fifty_ft_roll
+        corr = round(ground_roll*0.45, 2)
+        ground_roll = math.ceil(ground_roll + corr)
+        fifty_ft_roll = math.ceil(fifty_ft_roll + corr)
+    return ground_roll, fifty_ft_roll
 
 
 def compute_landing_performance(input_data, landing_df):
-    press_alt = input_data['LDPA']
-    temp = input_data['LDT']
+    press_alt = input_data['land_press_alt']
+    temp = input_data['land_temp']
     # Read the landing distance from the table.
     ground_roll, fifty_ft_roll = compute_landing_ground_roll(press_alt, temp, landing_df)
     # Correct landing distance for wind.
-    wind = input_data['LDW']
-    ground_roll, fifty_ft_roll = correct_distance_for_wind(ground_roll, fifty_ft_roll, wind)
+    wind_speed = input_data['land_wind_speed']
+    wind_direction = input_data['land_wind_direction']
+    ground_roll, fifty_ft_roll = correct_distance_for_wind(ground_roll, fifty_ft_roll, wind_speed, wind_direction)
     # Correct landing distance for runway condition.
-    condition = input_data['LDC']
+    condition = input_data['land_condition']
     ground_roll, fifty_ft_roll = correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
     return ground_roll, fifty_ft_roll
