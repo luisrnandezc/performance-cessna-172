@@ -1,15 +1,7 @@
 # Imports.
-import sys
-import os
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .forms import PerformanceData
-
-# Construct the path to the 'src' module path.
-src_path = os.path.join(os.path.dirname(__file__), '..', '..', 'src')
-# Append the constructed path to sys.path.
-sys.path.append(src_path)
-
 from .src import run_performance
 
 

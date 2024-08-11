@@ -5,13 +5,18 @@ GitHub: luisrnandezc
 Date: 13/09/2023
 """
 
-import input_check
-import data
-import takeoff
-import cruise
-import fuel
-import landing
+import os
+import sys
+from . import input_check
+from . import data
+from . import takeoff
+from . import cruise
+from . import fuel
+from . import landing
 import pandas as pd
+
+file_dir = os.path.dirname(__file__)
+sys.path.append(file_dir)
 
 
 def compute_performance(input_data):
