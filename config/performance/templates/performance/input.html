@@ -41,6 +41,11 @@
                 </div>
 
                 <div class="input-container">
+                    <label class="form-text">Takeoff runway number:</label>
+                    {{ form.to_rwy|add_class:"input-field" }}
+                    <p class="error">{{ form.to_rwy.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
                     <label class="form-text">Takeoff runway length [ft]:</label>
                     {{ form.to_length|add_class:"input-field" }}
                     <p class="error">{{ form.to_length.errors.as_text }}</p>
@@ -65,8 +70,9 @@
                     <p class="error">{{ form.to_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff wind direction:</label>
-                    {{ form.to_wind_direction|add_class:"radio-input-field" }}
+                    <label class="form-text">Takeoff wind direction [°]:</label>
+                    {{ form.to_wind_direction|add_class:"input-field" }}
+                    <p class="error">{{ form.to_wind_direction.errors.as_text }}</p>
                 </div>
 
                 <!-- Cruise data -->
@@ -78,6 +84,11 @@
                     <label class="form-text">Travel distance [nm]:</label>
                     {{ form.travel_dist|add_class:"input-field" }}
                     <p class="error">{{ form.travel_dist.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Cruise heading [°]:</label>
+                    {{ form.cr_heading|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
                     <label class="form-text">Cruise altitude [ft]:</label>
@@ -95,8 +106,9 @@
                     <p class="error">{{ form.cr_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise wind direction:</label>
-                    <p class="class">{{ form.cr_wind_direction|add_class:"radio-input-field" }}</p>
+                    <label class="form-text">Cruise wind direction [°]:</label>
+                    {{ form.cr_wind_direction|add_class:"input-field" }}
+                    <p class="error">{{ form.cr_wind_direction.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
                     <label class="form-text">Cruise power [rpm]:</label>
@@ -109,6 +121,11 @@
                     <h2 class="form-text">Landing data</h2>
                 </div>
 
+                <div class="input-container">
+                    <label class="form-text">Landing runway number:</label>
+                    {{ form.land_rwy|add_class:"input-field" }}
+                    <p class="error">{{ form.land_rwy.errors.as_text }}</p>
+                </div>
                 <div class="input-container">
                     <label class="form-text">Landing runway length [ft]:</label>
                     {{ form.land_length|add_class:"input-field" }}
@@ -134,8 +151,9 @@
                     <p class="error">{{ form.land_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing wind direction:</label>
-                    {{ form.land_wind_direction|add_class:"radio-input-field" }}
+                    <label class="form-text">Landing wind direction [°]:</label>
+                    {{ form.land_wind_direction|add_class:"input-field" }}
+                    <p class="error">{{ form.land_wind_direction.errors.as_text }}</p>
                 </div>
 
                 <button class="submit-button" type="submit" name="submit">Compute</button>
