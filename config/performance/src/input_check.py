@@ -73,13 +73,13 @@ def check_fuel_capacity(fuel_capacity):
         return None
 
 
-def check_runway_number(rwy_number):
+def check_runway_heading(rwy_number):
     """
-    Returns None if the argument is a valid runway number,
+    Returns None if the argument is a valid runway heading,
     otherwise the program stops with a pertinent error message.
     """
-    if rwy_number < 1 or rwy_number > 36:
-        sys.exit('Runway number | ' + msg_error_invalid_value)
+    if rwy_number < 1 or rwy_number > 360:
+        sys.exit('Runway heading | ' + msg_error_invalid_value)
     return None
 
 
@@ -179,7 +179,7 @@ def check_cr_heading(cr_heading):
     Returns None if the argument is a valid cruise heading,
     otherwise the program stops with a pertinent error message.
     """
-    if cr_heading < 1 or cr_heading > 36:
+    if cr_heading < 1 or cr_heading > 360:
         sys.exit('Cruise heading | ' + msg_error_invalid_value)
     return None
 
@@ -217,7 +217,7 @@ def check_input_data(input_data):
     check_take_off_weight(input_data['to_weight'])
     check_fuel_capacity(input_data['fuel_capacity'])
     # Check takeoff data.
-    check_runway_number(input_data['to_rwy'])
+    check_runway_heading(input_data['to_rwy'])
     check_runway_length(input_data['to_length'])
     check_runway_condition(input_data['to_condition'])
     check_pressure_altitude(input_data['to_press_alt'])
@@ -233,7 +233,7 @@ def check_input_data(input_data):
     check_wind_direction(input_data['cr_wind_direction'])
     check_cruise_rpm(input_data['cr_power'])
     # Check landing data.
-    check_runway_number(input_data['land_rwy'])
+    check_runway_heading(input_data['land_rwy'])
     check_runway_length(input_data['land_length'])
     check_runway_condition(input_data['land_condition'])
     check_pressure_altitude(input_data['land_press_alt'])

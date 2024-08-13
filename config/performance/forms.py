@@ -29,8 +29,8 @@ class PerformanceData(forms.Form):
     fuel_capacity = forms.ChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME)
 
     # Takeoff fields.
-    to_rwy = forms.IntegerField(min_value=1, max_value=36,
-                                   widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway number (ex: 7)'}))
+    to_rwy = forms.IntegerField(min_value=1, max_value=360,
+                                widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway heading (ex: 070)'}))
     to_length = forms.IntegerField(min_value=0,
                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway length in ft'}))
     to_condition = forms.ChoiceField(widget=forms.RadioSelect, choices=RUNWAY_CONDITION)
@@ -46,7 +46,7 @@ class PerformanceData(forms.Form):
     # Cruise fields.
     travel_dist = forms.IntegerField(min_value=0, max_value=750,
                                      widget=forms.TextInput(attrs={'placeholder': 'Travel distance in nm'}))
-    cr_heading = forms.IntegerField(min_value=1, max_value=36,
+    cr_heading = forms.IntegerField(min_value=1, max_value=360,
                                     widget=forms.TextInput(attrs={'placeholder': 'Cruise heading (ex: 090)'}))
     cr_press_alt = forms.IntegerField(min_value=0, max_value=14200,
                                       widget=forms.TextInput(attrs={'placeholder': 'Cruise pressure altitude in ft'}))
@@ -59,8 +59,8 @@ class PerformanceData(forms.Form):
     cr_power = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Cruise rpm'}))
     
     # Landing fields.
-    land_rwy = forms.IntegerField(min_value=1, max_value=36,
-                                  widget=forms.TextInput(attrs={'placeholder': 'Landing runway number (ex: 27)'}))
+    land_rwy = forms.IntegerField(min_value=1, max_value=360,
+                                  widget=forms.TextInput(attrs={'placeholder': 'Landing runway heading (ex: 270)'}))
     land_length = forms.IntegerField(min_value=0,
                                      widget=forms.TextInput(attrs={'placeholder': 'Landing runway length in ft'}))
     land_condition = forms.ChoiceField(widget=forms.RadioSelect, choices=RUNWAY_CONDITION)
@@ -83,8 +83,8 @@ class PerformanceData(forms.Form):
     # Takeoff data validation.
     def clean_to_rwy(self):
         data = self.cleaned_data['to_rwy']
-        if data < 1 or data > 36:
-            raise ValidationError(_('Invalid value - The runway number must be between 1 and 36'))
+        if data < 1 or data > 360:
+            raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data
 
     def clean_to_length(self):
@@ -163,8 +163,8 @@ class PerformanceData(forms.Form):
     # Landing validation data.
     def clean_land_rwy(self):
         data = self.cleaned_data['land_rwy']
-        if data < 1 or data > 36:
-            raise ValidationError(_('Invalid value - The runway number must be between 1 and 36'))
+        if data < 1 or data > 360:
+            raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data
 
     def clean_land_length(self):

@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Takeoff runway number:</label>
+                    <label class="form-text">Takeoff runway heading [°]:</label>
                     {{ form.to_rwy|add_class:"input-field" }}
                     <p class="error">{{ form.to_rwy.errors.as_text }}</p>
                 </div>
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Landing runway number:</label>
+                    <label class="form-text">Landing runway heading [°]:</label>
                     {{ form.land_rwy|add_class:"input-field" }}
                     <p class="error">{{ form.land_rwy.errors.as_text }}</p>
                 </div>
