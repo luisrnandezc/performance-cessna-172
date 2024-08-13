@@ -73,6 +73,16 @@ def check_fuel_capacity(fuel_capacity):
         return None
 
 
+def check_runway_heading(rwy_number):
+    """
+    Returns None if the argument is a valid runway heading,
+    otherwise the program stops with a pertinent error message.
+    """
+    if rwy_number < 1 or rwy_number > 360:
+        sys.exit('Runway heading | ' + msg_error_invalid_value)
+    return None
+
+
 def check_runway_length(rwy_length):
     """
     Returns None if the argument is a valid runway length,
@@ -144,7 +154,7 @@ def check_wind_direction(wind_direction):
     Returns None if the argument is a valid wind direction,
     otherwise the program stops with a pertinent error message.
     """
-    if wind_direction != 'H' and wind_direction != 'T':
+    if wind_direction < 1 or wind_direction > 360 or wind_direction % 5 != 0:
         sys.exit('Wind direction | ' + msg_error_invalid_value)
     return None
 
@@ -162,6 +172,16 @@ def check_travel_distance(travel_distance):
         sys.exit('Travel distance | ERROR: The distance must be between 0 and 750 nautical miles.')
     else:
         return None
+
+
+def check_cr_heading(cr_heading):
+    """
+    Returns None if the argument is a valid cruise heading,
+    otherwise the program stops with a pertinent error message.
+    """
+    if cr_heading < 1 or cr_heading > 360:
+        sys.exit('Cruise heading | ' + msg_error_invalid_value)
+    return None
 
 
 def check_cruise_rpm(cr_rpm):
@@ -197,6 +217,7 @@ def check_input_data(input_data):
     check_take_off_weight(input_data['to_weight'])
     check_fuel_capacity(input_data['fuel_capacity'])
     # Check takeoff data.
+    check_runway_heading(input_data['to_rwy'])
     check_runway_length(input_data['to_length'])
     check_runway_condition(input_data['to_condition'])
     check_pressure_altitude(input_data['to_press_alt'])
@@ -205,12 +226,14 @@ def check_input_data(input_data):
     check_wind_direction(input_data['to_wind_direction'])
     # Check cruise data.
     check_travel_distance(input_data['travel_dist'])
+    check_cr_heading(input_data['cr_heading'])
     check_pressure_altitude(input_data['cr_press_alt'])
     check_temperature(input_data['cr_temp'])
     check_wind_speed(input_data['cr_wind_speed'])
     check_wind_direction(input_data['cr_wind_direction'])
     check_cruise_rpm(input_data['cr_power'])
     # Check landing data.
+    check_runway_heading(input_data['land_rwy'])
     check_runway_length(input_data['land_length'])
     check_runway_condition(input_data['land_condition'])
     check_pressure_altitude(input_data['land_press_alt'])
