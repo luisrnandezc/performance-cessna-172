@@ -9,6 +9,7 @@ import os
 import sys
 from . import input_check
 from . import data
+from . import wind
 from . import takeoff
 from . import cruise
 from . import fuel
@@ -40,6 +41,9 @@ def compute_performance(input_data):
 
     # Generate valid performance data.
     data.compute_valid_performance_data(input_data, power_df)
+
+    # Compute wind intensity and direction for takeoff, cruise and landing.
+    wind.run_wind_analysis(input_data)
 
     # Compute takeoff performance.
     to_roll, to_50_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
