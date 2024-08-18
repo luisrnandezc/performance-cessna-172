@@ -1,6 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from .models import CSVFile
+
+
+class CSVFileForm(forms.ModelForm):
+    class Meta:
+        model = CSVFile
+        fields = ['file']
 
 
 class PerformanceData(forms.Form):
