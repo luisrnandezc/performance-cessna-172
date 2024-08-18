@@ -22,13 +22,13 @@ import math
 def compute_wind_component(heading, wind_speed, wind_direction):
     """Returns the wind component parallel to the aircraft."""
     angle = abs(heading - wind_direction)
-    if angle == 90:
+    if angle == 90 or angle == 270:
         return 0, None
     aligned_speed = abs(round(wind_speed*math.cos(math.radians(angle)), 1))
-    if angle < 90:
-        aligned_direction = 'H'
-    else:
+    if 90 < angle < 270:
         aligned_direction = 'T'
+    else:
+        aligned_direction = 'H'
     return aligned_speed, aligned_direction
 
 
