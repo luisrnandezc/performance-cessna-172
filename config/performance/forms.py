@@ -10,7 +10,7 @@ class CSVFileForm(forms.ModelForm):
         fields = ['file']
 
 
-class PerformanceData(forms.Form):
+class ManualForm(forms.Form):
 
     error_css_class = "error"
 

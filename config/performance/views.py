@@ -1,7 +1,7 @@
 # Imports.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .forms import PerformanceData
+from .forms import ManualForm
 from .src import run_performance
 from .forms import CSVFileForm
 from .models import CSVFile, UploadCSVData
@@ -10,14 +10,20 @@ import io
 
 
 def data_input(request):
-    if request.method == "POST":
-        form = PerformanceData(request.POST)
-        if form.is_valid():
-            request.session["output_data"] = run_performance.compute_performance(form.cleaned_data)
+    file_form = CSVFileForm
+    manual_form = ManualForm
+    if 'submit_file_form' in request.method == 'POST':
+        file_form = CSVFileForm(request.POST, request.FILES)
+        if file_form.is_valid():
+            csv_file = file_form.save()
+            process_csv(csv_file)
+            request.session["output_data"] = run_performance.compute_performance(file_form.cleaned_data)
+    elif 'submit_manual_form' in request.method == "POST":
+        manual_form = ManualForm(request.POST)
+        if manual_form.is_valid():
+            request.session["output_data"] = run_performance.compute_performance(manual_form.cleaned_data)
             return HttpResponseRedirect("output")
-    else:
-        form = PerformanceData()
-    return render(request, "performance/input.html", {"form": form})
+    return render(request, "performance/input.html", {'file_form': file_form, 'manual_form': manual_form})
 
 
 def data_output(request):
@@ -25,16 +31,16 @@ def data_output(request):
     return render(request, "performance/output.html", {'performance_data': performance_data})
 
 
-def upload_csv(request):
-    if request.method == 'POST':
-        form = CSVFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            csv_file = form.save()
-            process_csv(csv_file)
-            return HttpResponseRedirect("output")
-    else:
-        form = CSVFileForm()
-    return render(request, "performance/input.html", {"form": form})
+# def upload_csv(request):
+#     if request.method == 'POST':
+#         form = CSVFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             csv_file = form.save()
+#             process_csv(csv_file)
+#             return HttpResponseRedirect("output")
+#     else:
+#         form = CSVFileForm()
+#     return render(request, "performance/input.html", {"form": form})
 
 
 def process_csv(csv_file):
