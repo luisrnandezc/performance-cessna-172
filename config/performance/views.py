@@ -49,7 +49,6 @@ def process_csv(csv_file):
     data_set = file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
     csv_reader = csv.reader(io_string, delimiter=',')
-    next(csv_reader)
     performance_data = {}
     fields = ['to_weight', 'fuel_capacity'
               'to_heading', 'to_length', 'to_condition', 'to_press_alt', 'to_temp', 'to_wind_speed', 'to_wind_direction',
