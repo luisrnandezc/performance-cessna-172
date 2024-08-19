@@ -1,9 +1,9 @@
 # Imports.
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .forms import ManualForm
 from .src import run_performance
 from .forms import CSVFileForm
+from .forms import ManualForm
 from .models import CSVFile, UploadCSVData
 import csv
 import io
@@ -18,6 +18,7 @@ def data_input(request):
             csv_file = file_form.save()
             process_csv(csv_file)
             request.session["output_data"] = run_performance.compute_performance(file_form.cleaned_data)
+            return HttpResponseRedirect("output")
     elif 'submit_manual_form' in request.method == "POST":
         manual_form = ManualForm(request.POST)
         if manual_form.is_valid():

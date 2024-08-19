@@ -83,7 +83,7 @@ class UploadCSVData(models.Model):
     # Takeoff fields.
     to_heading = models.PositiveIntegerField(validators=[validate_heading])
     to_length = models.PositiveIntegerField(validators=[validate_runway_length])
-    to_condition = models.CharField(validators=[validate_runway_condition])
+    to_condition = models.CharField(max_length=2, validators=[validate_runway_condition])
     to_press_alt = models.PositiveIntegerField(validators=[validate_pressure_altitude])
     to_temp = models.IntegerField(validators=[validate_temperature])
     to_wind_speed = models.PositiveIntegerField(validators=[validate_wind_speed])
@@ -101,7 +101,7 @@ class UploadCSVData(models.Model):
     # Landing fields.
     land_heading = models.PositiveIntegerField(validators=[validate_heading])
     land_length = models.PositiveIntegerField(validators=[validate_runway_length])
-    land_condition = models.CharField(validators=[validate_runway_condition])
+    land_condition = models.CharField(max_length=2, validators=[validate_runway_condition])
     land_press_alt = models.PositiveIntegerField(validators=[validate_pressure_altitude])
     land_temp = models.IntegerField(validators=[validate_temperature])
     land_wind_speed = models.PositiveIntegerField(validators=[validate_wind_speed])
