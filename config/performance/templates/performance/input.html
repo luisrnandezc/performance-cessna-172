@@ -13,7 +13,7 @@
             <form class="form" action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="main-form-header">
-                    <h1 class="form-text">Please upload csv file</h1>
+                    <h1 class="form-text">Please upload a .csv file</h1>
                 </div>
                 {{ file_form.as_p }}
                 <button class="submit-button" type="submit" name="submit_file_form">Compute</button>

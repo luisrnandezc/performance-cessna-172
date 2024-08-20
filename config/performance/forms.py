@@ -9,6 +9,12 @@ class CSVFileForm(forms.ModelForm):
         model = CSVFile
         fields = ['file']
 
+    def clean_file(self):
+        file = self.cleaned_data['file']
+        if file and not file.name.endswith('.csv'):
+            raise forms.ValidationError("File type not supported. Please upload a CSV file")
+        return file
+
 
 class ManualForm(forms.Form):
 

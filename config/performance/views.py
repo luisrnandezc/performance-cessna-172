@@ -12,18 +12,19 @@ import io
 def data_input(request):
     file_form = CSVFileForm
     manual_form = ManualForm
-    if 'submit_file_form' in request.method == 'POST':
-        file_form = CSVFileForm(request.POST, request.FILES)
-        if file_form.is_valid():
-            csv_file = file_form.save()
-            process_csv(csv_file)
-            request.session["output_data"] = run_performance.compute_performance(file_form.cleaned_data)
-            return HttpResponseRedirect("output")
-    elif 'submit_manual_form' in request.method == "POST":
-        manual_form = ManualForm(request.POST)
-        if manual_form.is_valid():
-            request.session["output_data"] = run_performance.compute_performance(manual_form.cleaned_data)
-            return HttpResponseRedirect("output")
+    if request.method == 'POST':
+        if 'submit_file_form' in request.POST:
+            file_form = CSVFileForm(request.POST, request.FILES)
+            if file_form.is_valid():
+                csv_file = file_form.save()
+                data = process_csv(csv_file)
+                request.session["output_data"] = run_performance.compute_performance(data)
+                return HttpResponseRedirect("output")
+        elif 'submit_manual_form' in request.POST:
+            manual_form = ManualForm(request.POST)
+            if manual_form.is_valid():
+                request.session["output_data"] = run_performance.compute_performance(manual_form.cleaned_data)
+                return HttpResponseRedirect("output")
     return render(request, "performance/input.html", {'file_form': file_form, 'manual_form': manual_form})
 
 
@@ -32,25 +33,13 @@ def data_output(request):
     return render(request, "performance/output.html", {'performance_data': performance_data})
 
 
-# def upload_csv(request):
-#     if request.method == 'POST':
-#         form = CSVFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             csv_file = form.save()
-#             process_csv(csv_file)
-#             return HttpResponseRedirect("output")
-#     else:
-#         form = CSVFileForm()
-#     return render(request, "performance/input.html", {"form": form})
-
-
 def process_csv(csv_file):
     file = csv_file.file.open(mode='r')
-    data_set = file.read().decode('UTF-8')
+    data_set = file.read()
     io_string = io.StringIO(data_set)
     csv_reader = csv.reader(io_string, delimiter=',')
     performance_data = {}
-    fields = ['to_weight', 'fuel_capacity'
+    fields = ['to_weight', 'fuel_capacity',
               'to_heading', 'to_length', 'to_condition', 'to_press_alt', 'to_temp', 'to_wind_speed', 'to_wind_direction',
               'travel_dist', 'cr_heading', 'cr_press_alt', 'cr_temp', 'cr_wind_speed', 'cr_wind_direction', 'cr_power',
               'land_heading', 'land_length', 'land_condition', 'land_press_alt', 'land_temp', 'land_wind_speed', 'land_wind_direction']
@@ -82,3 +71,5 @@ def process_csv(csv_file):
             land_wind_speed=performance_data['land_wind_speed'],
             land_wind_direction=performance_data['land_wind_direction']
         )
+
+        return performance_data
