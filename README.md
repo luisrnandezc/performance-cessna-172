@@ -1,2 +1,2 @@
 # performance-cessna-172
-Application for computing the complete performance data for the Cessna 172N.
+A Django web application for computing the complete performance and balance data of the Cessna 172N.
