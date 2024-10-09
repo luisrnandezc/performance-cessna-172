@@ -19,8 +19,8 @@ class ManualForm(forms.Form):
 
     # Radio choices.
     TANK_VOLUME = [
-        ('40', '40 gal'),
-        ('50', '50 gal'),
+        (40, '40 gal'),
+        (50, '50 gal'),
     ]
 
     RUNWAY_CONDITION = [
@@ -36,7 +36,7 @@ class ManualForm(forms.Form):
     # General fields.
     to_weight = forms.IntegerField(min_value=1397, max_value=2300,
                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff weight in lb'}))
-    fuel_capacity = forms.ChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME)
+    fuel_capacity = forms.TypedChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME, coerce=int)
 
     # Takeoff fields.
     to_heading = forms.IntegerField(min_value=1, max_value=360,

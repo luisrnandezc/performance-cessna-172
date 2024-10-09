@@ -49,7 +49,7 @@ def compute_performance(input_data):
     to_roll, to_50_roll, roc = takeoff.compute_takeoff_performance(input_data, takeoff_df, roc_df)
 
     # Compute cruise performance.
-    if input_data['fuel_capacity'] == '40':
+    if input_data['fuel_capacity'] == 40:
         range_df = range40_df
         endurance_df = endurance40_df
     else:

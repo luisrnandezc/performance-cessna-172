@@ -47,7 +47,7 @@ def process_csv(csv_file):
               'land_heading', 'land_length', 'land_condition', 'land_press_alt', 'land_temp', 'land_wind_speed', 'land_wind_direction']
     for (field, row) in zip(fields, csv_reader):
         value = row[1]
-        if value.isnumeric():
+        if value.isnumeric() or value[0] == '-':
             performance_data[field] = int(value)
         else:
             performance_data[field] = value
