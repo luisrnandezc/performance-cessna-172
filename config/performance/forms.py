@@ -3,19 +3,29 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
-class PerformanceData(forms.Form):
+class CSVFileForm(forms.Form):
+    csv_file = forms.FileField(label="Upload CSV file")
+
+    def clean_file(self):
+        file = self.cleaned_data['file']
+        if file and not file.name.endswith('.csv'):
+            raise forms.ValidationError("File type not supported. Please upload a CSV file")
+        return file
+
+
+class ManualForm(forms.Form):
 
     error_css_class = "error"
 
     # Radio choices.
     TANK_VOLUME = [
-        ('40', '40 gal'),
-        ('50', '50 gal'),
+        (40, '40 gal'),
+        (50, '50 gal'),
     ]
 
     RUNWAY_CONDITION = [
-        ('PD', 'Paved dry'),
-        ('GD', 'Grass dry'),
+        ('p', 'Paved dry'),
+        ('g', 'Grass dry'),
     ]
 
     WIND_DIRECTION = [
@@ -26,11 +36,11 @@ class PerformanceData(forms.Form):
     # General fields.
     to_weight = forms.IntegerField(min_value=1397, max_value=2300,
                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff weight in lb'}))
-    fuel_capacity = forms.ChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME)
+    fuel_capacity = forms.TypedChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME, coerce=int)
 
     # Takeoff fields.
-    to_rwy = forms.IntegerField(min_value=1, max_value=360,
-                                widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway heading (ex: 070)'}))
+    to_heading = forms.IntegerField(min_value=1, max_value=360,
+                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway heading (ex: 070)'}))
     to_length = forms.IntegerField(min_value=0,
                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway length in ft'}))
     to_condition = forms.ChoiceField(widget=forms.RadioSelect, choices=RUNWAY_CONDITION)
@@ -59,7 +69,7 @@ class PerformanceData(forms.Form):
     cr_power = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Cruise rpm'}))
     
     # Landing fields.
-    land_rwy = forms.IntegerField(min_value=1, max_value=360,
+    land_heading = forms.IntegerField(min_value=1, max_value=360,
                                   widget=forms.TextInput(attrs={'placeholder': 'Landing runway heading (ex: 270)'}))
     land_length = forms.IntegerField(min_value=0,
                                      widget=forms.TextInput(attrs={'placeholder': 'Landing runway length in ft'}))
@@ -81,8 +91,8 @@ class PerformanceData(forms.Form):
         return data
 
     # Takeoff data validation.
-    def clean_to_rwy(self):
-        data = self.cleaned_data['to_rwy']
+    def clean_to_heading(self):
+        data = self.cleaned_data['to_heading']
         if data < 1 or data > 360:
             raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data
@@ -161,8 +171,8 @@ class PerformanceData(forms.Form):
         return data
 
     # Landing validation data.
-    def clean_land_rwy(self):
-        data = self.cleaned_data['land_rwy']
+    def clean_land_heading(self):
+        data = self.cleaned_data['land_heading']
         if data < 1 or data > 360:
             raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data

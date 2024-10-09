@@ -1,4 +1,3 @@
-from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
@@ -30,7 +29,7 @@ def validate_runway_length(rwy_length):
 def validate_runway_condition(rwy_condition):
     """Raise an exception if the argument is an invalid runway condition."""
     valid_conditions = ['p', 'g']
-    if rwy_condition not in valid_conditions:
+    if rwy_condition.lower() not in valid_conditions:
         raise ValidationError(_("{} is not a valid runway condition".format(rwy_condition)))
 
 
@@ -68,41 +67,3 @@ def validate_cruise_rpm(cr_rpm):
     """Raise an exception if the argument is an invalid cruise rpm."""
     if cr_rpm < 2100 or cr_rpm > 2650:
         raise ValidationError(_("{} is not a valid cruise rpm".format(cr_rpm)))
-
-
-class CSVFile(models.Model):
-    file = models.FileField(upload_to='csvs/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-
-
-class UploadCSVData(models.Model):
-    # General fields.
-    to_weight = models.PositiveIntegerField(validators=[validate_to_weight])
-    fuel_capacity = models.PositiveIntegerField(validators=[validate_fuel_capacity])
-
-    # Takeoff fields.
-    to_heading = models.PositiveIntegerField(validators=[validate_heading])
-    to_length = models.PositiveIntegerField(validators=[validate_runway_length])
-    to_condition = models.CharField(max_length=2, validators=[validate_runway_condition])
-    to_press_alt = models.PositiveIntegerField(validators=[validate_pressure_altitude])
-    to_temp = models.IntegerField(validators=[validate_temperature])
-    to_wind_speed = models.PositiveIntegerField(validators=[validate_wind_speed])
-    to_wind_direction = models.PositiveIntegerField(validators=[validate_wind_direction])
-
-    # Cruise fields.
-    travel_dist = models.PositiveIntegerField(validators=[validate_travel_distance])
-    cr_heading = models.PositiveIntegerField(validators=[validate_heading])
-    cr_press_alt = models.PositiveIntegerField(validators=[validate_pressure_altitude])
-    cr_temp = models.IntegerField(validators=[validate_temperature])
-    cr_wind_speed = models.PositiveIntegerField(validators=[validate_wind_speed])
-    cr_wind_direction = models.PositiveIntegerField(validators=[validate_wind_direction])
-    cr_power = models.PositiveIntegerField(validators=[validate_cruise_rpm])
-
-    # Landing fields.
-    land_heading = models.PositiveIntegerField(validators=[validate_heading])
-    land_length = models.PositiveIntegerField(validators=[validate_runway_length])
-    land_condition = models.CharField(max_length=2, validators=[validate_runway_condition])
-    land_press_alt = models.PositiveIntegerField(validators=[validate_pressure_altitude])
-    land_temp = models.IntegerField(validators=[validate_temperature])
-    land_wind_speed = models.PositiveIntegerField(validators=[validate_wind_speed])
-    land_wind_direction = models.PositiveIntegerField(validators=[validate_wind_direction])

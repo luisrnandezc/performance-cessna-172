@@ -1,0 +1,24 @@
+Takeoff weight,2200
+Fuel capacity,40
+Takeoff heading,70
+Takeoff runway length,2000
+Takeoff runway condition,g
+Takeoff pressure altitude,3500
+Takeoff temperature,-8
+Takeoff wind speed,15
+Takeoff wind direction,20
+Travel distance,480
+Cruise heading,360
+Cruise pressure altitude,9000
+Cruise temperature,-18
+Cruise wind speed,20
+Cruise wind direction,20
+Cruise power,2400
+Landing heading,270
+Landing runway length,2300
+Landing runway condition,g
+Landing pressure altitude,5000
+Landing temperature,-10
+Landing wind speed,18
+Landing wind direction,160
+
