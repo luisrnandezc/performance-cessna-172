@@ -38,18 +38,18 @@ def run_wind_analysis(input_data):
     cruise and landing.
     """
     # Compute wind components for takeoff, cruise and landing.
-    to_rwy = input_data['to_rwy']
+    to_heading = input_data['to_heading']
     to_wind_speed = input_data['to_wind_speed']
     to_wind_direction = input_data['to_wind_direction']
-    to_wind_component = compute_wind_component(to_rwy, to_wind_speed, to_wind_direction)
+    to_wind_component = compute_wind_component(to_heading, to_wind_speed, to_wind_direction)
     cr_heading = input_data['cr_heading']
     cr_wind_speed = input_data['cr_wind_speed']
     cr_wind_direction = input_data['cr_wind_direction']
     cr_wind_component = compute_wind_component(cr_heading, cr_wind_speed, cr_wind_direction)
-    land_rwy = input_data['land_rwy']
+    land_heading = input_data['land_heading']
     land_wind_speed = input_data['land_wind_speed']
     land_wind_direction = input_data['land_wind_direction']
-    land_wind_component = compute_wind_component(land_rwy, land_wind_speed, land_wind_direction)
+    land_wind_component = compute_wind_component(land_heading, land_wind_speed, land_wind_direction)
     # Update input data with computed wind components.
     input_data['to_wind_speed'] = to_wind_component[0]
     input_data['to_wind_direction'] = to_wind_component[1]

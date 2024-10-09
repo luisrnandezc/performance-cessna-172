@@ -101,8 +101,8 @@ def check_runway_condition(rwy_condition):
     Returns None if the argument is a valid runway condition,
     otherwise the program stops with a pertinent error message.
     """
-    valid_conditions = ['PD', 'GD']
-    if rwy_condition not in valid_conditions:
+    valid_conditions = ['p', 'g']
+    if rwy_condition.lower() not in valid_conditions:
         sys.exit('Runway condition | ' + msg_error_invalid_value)
     else:
         return None
@@ -217,7 +217,7 @@ def check_input_data(input_data):
     check_take_off_weight(input_data['to_weight'])
     check_fuel_capacity(input_data['fuel_capacity'])
     # Check takeoff data.
-    check_runway_heading(input_data['to_rwy'])
+    check_runway_heading(input_data['to_heading'])
     check_runway_length(input_data['to_length'])
     check_runway_condition(input_data['to_condition'])
     check_pressure_altitude(input_data['to_press_alt'])
@@ -233,7 +233,7 @@ def check_input_data(input_data):
     check_wind_direction(input_data['cr_wind_direction'])
     check_cruise_rpm(input_data['cr_power'])
     # Check landing data.
-    check_runway_heading(input_data['land_rwy'])
+    check_runway_heading(input_data['land_heading'])
     check_runway_length(input_data['land_length'])
     check_runway_condition(input_data['land_condition'])
     check_pressure_altitude(input_data['land_press_alt'])

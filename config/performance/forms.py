@@ -1,13 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from .models import CSVFile
 
 
-class CSVFileForm(forms.ModelForm):
-    class Meta:
-        model = CSVFile
-        fields = ['file']
+class CSVFileForm(forms.Form):
+    csv_file = forms.FileField(label="Upload CSV file")
 
     def clean_file(self):
         file = self.cleaned_data['file']
@@ -27,8 +24,8 @@ class ManualForm(forms.Form):
     ]
 
     RUNWAY_CONDITION = [
-        ('PD', 'Paved dry'),
-        ('GD', 'Grass dry'),
+        ('p', 'Paved dry'),
+        ('g', 'Grass dry'),
     ]
 
     WIND_DIRECTION = [
@@ -42,8 +39,8 @@ class ManualForm(forms.Form):
     fuel_capacity = forms.ChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME)
 
     # Takeoff fields.
-    to_rwy = forms.IntegerField(min_value=1, max_value=360,
-                                widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway heading (ex: 070)'}))
+    to_heading = forms.IntegerField(min_value=1, max_value=360,
+                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway heading (ex: 070)'}))
     to_length = forms.IntegerField(min_value=0,
                                    widget=forms.TextInput(attrs={'placeholder': 'Takeoff runway length in ft'}))
     to_condition = forms.ChoiceField(widget=forms.RadioSelect, choices=RUNWAY_CONDITION)
@@ -72,7 +69,7 @@ class ManualForm(forms.Form):
     cr_power = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Cruise rpm'}))
     
     # Landing fields.
-    land_rwy = forms.IntegerField(min_value=1, max_value=360,
+    land_heading = forms.IntegerField(min_value=1, max_value=360,
                                   widget=forms.TextInput(attrs={'placeholder': 'Landing runway heading (ex: 270)'}))
     land_length = forms.IntegerField(min_value=0,
                                      widget=forms.TextInput(attrs={'placeholder': 'Landing runway length in ft'}))
@@ -94,8 +91,8 @@ class ManualForm(forms.Form):
         return data
 
     # Takeoff data validation.
-    def clean_to_rwy(self):
-        data = self.cleaned_data['to_rwy']
+    def clean_to_heading(self):
+        data = self.cleaned_data['to_heading']
         if data < 1 or data > 360:
             raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data
@@ -174,8 +171,8 @@ class ManualForm(forms.Form):
         return data
 
     # Landing validation data.
-    def clean_land_rwy(self):
-        data = self.cleaned_data['land_rwy']
+    def clean_land_heading(self):
+        data = self.cleaned_data['land_heading']
         if data < 1 or data > 360:
             raise ValidationError(_('Invalid value - The runway heading must be a multiple of 5 between 1 and 360'))
         return data

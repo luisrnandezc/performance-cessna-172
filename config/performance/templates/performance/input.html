@@ -51,8 +51,8 @@
 
                 <div class="input-container">
                     <label class="form-text">Takeoff runway heading [°]:</label>
-                    {{ manual_form.to_rwy|add_class:"input-field" }}
-                    <p class="error">{{ manual_form.to_rwy.errors.as_text }}</p>
+                    {{ manual_form.to_heading|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.to_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
                     <label class="form-text">Takeoff runway length [ft]:</label>
@@ -132,8 +132,8 @@
 
                 <div class="input-container">
                     <label class="form-text">Landing runway heading [°]:</label>
-                    {{ manual_form.land_rwy|add_class:"input-field" }}
-                    <p class="error">{{ manual_form.land_rwy.errors.as_text }}</p>
+                    {{ manual_form.land_heading|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.land_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
                     <label class="form-text">Landing runway length [ft]:</label>
