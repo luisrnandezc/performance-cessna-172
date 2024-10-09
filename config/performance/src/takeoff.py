@@ -108,7 +108,7 @@ def compute_takeoff_roc(press_alt, roc_temp, roc_df):
         roc = roc_df.loc[press_alt]['roc_p' + str(roc_temp)]
     else:
         roc = roc_df.loc[press_alt]['roc_' + str(roc_temp)]
-    return roc
+    return int(roc)
 
 
 def compute_takeoff_performance(input_data, takeoff_df, roc_df):

@@ -64,8 +64,8 @@ def compute_performance(input_data):
     land_roll, land_50_roll = landing.compute_landing_performance(input_data, landing_df)
 
     # Store results.
-    keys = ['to_roll', 'to_50_roll', 'max_endurance', 'max_range', 'fuel_required', 'fuel_reserve', 'land_roll', 'land_50_roll']
-    values = [to_roll, to_50_roll, max_endurance, max_range, fuel_required, fuel_reserve, land_roll, land_50_roll]
+    keys = ['to_roll', 'to_50_roll', 'to_roc', 'max_endurance', 'max_range', 'fuel_required', 'fuel_reserve', 'land_roll', 'land_50_roll']
+    values = [to_roll, to_50_roll, roc, max_endurance, max_range, fuel_required, fuel_reserve, land_roll, land_50_roll]
     results = {}
     for (key, value) in zip(keys, values):
         results[key] = value
