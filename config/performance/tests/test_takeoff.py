@@ -1,5 +1,8 @@
+import sys
+import os
 import unittest
 import pandas as pd
+
 
 
 performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\config\performance\src\data'
