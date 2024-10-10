@@ -1,7 +1,6 @@
 import unittest
 import pandas as pd
-import src
-from config.performance.src import takeoff
+
 
 performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\config\performance\src\data'
 takeoff_df = pd.read_csv(performance_path + '\\' + 'takeoff.csv')
