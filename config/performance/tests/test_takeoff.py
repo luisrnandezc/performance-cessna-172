@@ -1,10 +1,14 @@
-import unittest
+import sys
+import os
 import pandas as pd
-from src.takeoff import compute_takeoff_ground_roll
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
-performance_path = r'/config/performance/src/data'
-takeoff_df = pd.read_csv(performance_path + '\\' + 'takeoff.csv')
-roc_df = pd.read_csv(performance_path + '\\' + 'roc.csv', index_col=0)
+import unittest
+from ..src.takeoff import compute_takeoff_ground_roll
+
+performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\config\performance\src\data\\'
+takeoff_df = pd.read_csv(performance_path + 'takeoff.csv')
+roc_df = pd.read_csv(performance_path + 'roc.csv', index_col=0)
 
 
 class TestTakeoff(unittest.TestCase):
