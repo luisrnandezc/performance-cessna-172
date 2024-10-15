@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cessna 172N | Weight and Balance | Input Form</title>
+        <link href="{% static 'weight_balance/styles_input.css' %}" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="form-container">
+            <form class="form" action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="main-form-header">
+                    <h1 class="form-text">Please upload a .csv file</h1>
+                </div>
+                {{ file_form.as_p }}
+                <button class="submit-button" type="submit" name="submit_file_form">Compute</button>
+            </form>
+
+            <form class="form" action="" method="post">
+                {{ form.non_field_errors }}
+                {% csrf_token %}
+                {% load widget_tweaks %}
+
+                <!-- Main form header -->
+                <div class="main-form-header">
+                    <h1 class="form-text">Please provide de following information</h1>
+                </div>
+
+                <!-- General data -->
+                <div class="sub-header">
+                    <h2 class="form-text">General data</h2>
+                </div>
+
+                <div class="input-container">
+                    <label class="form-text">Seating configuration:</label>
+                    {{ manual_form.seat_config|add_class:"radio-input-field" }}
+                </div>
+
+                <div class="input-container">
+                    <label class="form-text">Basic empty weight [lb]:</label>
+                    {{ manual_form.basic_weight|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.basic_weight.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Basic moment [lb-in]:</label>
+                    {{ manual_form.basic_moment|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.basic_moment.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Fuel capacity [gal]:</label>
+                    {{ manual_form.fuel_capacity|add_class:"radio-input-field" }}
+                </div>
+
+                <!-- Pilot, passengers and baggage weights. -->
+                <div class="sub-header">
+                    <h2 class="form-text">Weights data</h2>
+                </div>
+
+                <div class="input-container">
+                    <label class="form-text">Pilot weight [lb]:</label>
+                    {{ manual_form.pilot|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.pilot.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Front pax weight [lb]:</label>
+                    {{ manual_form.front_pax|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.front_pax.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Rear pax 1 weight [lb]:</label>
+                    {{ manual_form.rear_pax_1|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.rear_pax_1.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Rear pax 2 weight [lb]:</label>
+                    {{ manual_form.rear_pax_2|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.rear_pax_2.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Baggage area 1 weight [lb]:</label>
+                    {{ manual_form.cargo_1|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.cargo_1.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Baggage area 2 weight [lb]:</label>
+                    {{ manual_form.cargo_2|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.cargo_2.errors.as_text }}</p>
+                </div>
+                <div class="input-container">
+                    <label class="form-text">Fuel allowance [lb]:</label>
+                    {{ manual_form.fuel_allowance|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.fuel_allowance.errors.as_text }}</p>
+                </div>
+                <button class="submit-button" type="submit" name="submit_manual_form">Compute</button>
+            </form>
+        </div>
+    </body>
+</html>

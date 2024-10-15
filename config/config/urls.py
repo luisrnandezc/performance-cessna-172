@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls', namespace='home')),
     path('performance/', include('performance.urls', namespace='performance')),
+    path('weight_balance/', include('weight_balance.urls', namespace='weight_balance'))
 ]
