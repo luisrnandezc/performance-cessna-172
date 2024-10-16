@@ -22,8 +22,6 @@ sys.path.append(file_dir)
 
 def compute_performance(input_data):
 
-    # TODO: Extract data for cleaning.
-
     # Check input data.
     input_data = input_check.check_input_data(input_data)
 

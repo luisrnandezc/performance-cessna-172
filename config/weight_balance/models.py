@@ -21,10 +21,10 @@ def validate_basic_moment(basic_moment):
         raise ValidationError(_("Invalid moment - The moment must be between 0 and 120 lb-in (/1000)"))
 
 
-def validate_fuel_capacity(fuel_capacity):
-    """Raise an exception if the argument is an invalid fuel capacity."""
-    if fuel_capacity != 40 and fuel_capacity != 50:
-        raise ValidationError(_("The fuel capacity must be 40 or 50"))
+def validate_usable_fuel(usable_fuel):
+    """Raise an exception if the argument is an invalid fuel volume."""
+    if usable_fuel < 0 or usable_fuel > 50:
+        raise ValidationError(_("Invalid fuel - The usable fuel must be between 0 and 50 gallons"))
 
 
 def validate_pilot(pilot):
@@ -64,9 +64,9 @@ def validate_cargo_2(cargo_2):
 
 
 def validate_fuel_allowance(fuel_allowance):
-    """Raise an exception if the argument is an invalid weight."""
-    if fuel_allowance < 0 or fuel_allowance > 40:
-        raise ValidationError(_("Invalid weight - The weight must be between 0 and 40 pounds"))
+    """Raise an exception if the argument is an invalid fuel weight."""
+    if fuel_allowance < 0 or fuel_allowance > 150:
+        raise ValidationError(_("Invalid weight - The weight must be between 0 and 150 pounds"))
 
 
 class CSVFile(models.Model):
@@ -79,9 +79,9 @@ class UploadCSVData(models.Model):
     seat_config = models.PositiveIntegerField(validators=[validate_seat_config])
     basic_weight = models.PositiveIntegerField(validators=[validate_basic_weight])
     basic_moment = models.PositiveIntegerField(validators=[validate_basic_moment])
-    fuel_capacity = models.PositiveIntegerField(validators=[validate_fuel_capacity])
 
     # Weight data fields.
+    usable_fuel = models.PositiveIntegerField(validators=[validate_usable_fuel])
     pilot = models.PositiveIntegerField(validators=[validate_pilot])
     front_pax = models.PositiveIntegerField(validators=[validate_front_pax])
     rear_pax_1 = models.PositiveIntegerField(validators=[validate_rear_pax_1])

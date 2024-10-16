@@ -38,7 +38,6 @@
                     <label class="form-text">Seating configuration:</label>
                     {{ manual_form.seat_config|add_class:"radio-input-field" }}
                 </div>
-
                 <div class="input-container">
                     <label class="form-text">Basic empty weight [lb]:</label>
                     {{ manual_form.basic_weight|add_class:"input-field" }}
@@ -49,16 +48,17 @@
                     {{ manual_form.basic_moment|add_class:"input-field" }}
                     <p class="error">{{ manual_form.basic_moment.errors.as_text }}</p>
                 </div>
-                <div class="input-container">
-                    <label class="form-text">Fuel capacity [gal]:</label>
-                    {{ manual_form.fuel_capacity|add_class:"radio-input-field" }}
-                </div>
 
                 <!-- Pilot, passengers and baggage weights. -->
                 <div class="sub-header">
                     <h2 class="form-text">Weights data</h2>
                 </div>
 
+                <div class="input-container">
+                    <label class="form-text">Usable fuel [gal]:</label>
+                    {{ manual_form.usable_fuel|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.usable_fuel.errors.as_text }}</p>
+                </div>
                 <div class="input-container">
                     <label class="form-text">Pilot weight [lb]:</label>
                     {{ manual_form.pilot|add_class:"input-field" }}

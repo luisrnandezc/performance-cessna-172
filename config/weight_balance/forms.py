@@ -22,29 +22,24 @@ class ManualForm(forms.Form):
         (1, 'Optional'),
     ]
 
-    TANK_VOLUME = [
-        (40, '40 gal'),
-        (50, '50 gal'),
-    ]
-
     # General fields.
     seat_config = forms.TypedChoiceField(widget=forms.RadioSelect, choices=SEAT_CONFIG, coerce=int)
     basic_weight = forms.IntegerField(min_value=1397, max_value=2300,
                                       widget=forms.TextInput(attrs={'placeholder': 'Basic empty weight in lb'}))
     basic_moment = forms.IntegerField(min_value=0, max_value=120,
                                       widget=forms.TextInput(attrs={'placeholder': 'Basic empty moment in lb-in (/1000)'}))
-    fuel_capacity = forms.TypedChoiceField(widget=forms.RadioSelect, choices=TANK_VOLUME, coerce=int)
 
     # Weight data.
-    pilot = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'placeholder': 'Pilot weight in lb'}))
-    front_pax = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'placeholder': 'Front pax weight in lb'}))
-    rear_pax_1 = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
-    rear_pax_2 = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
+    usable_fuel = forms.IntegerField(min_value=0, max_value=50, widget=forms.TextInput(attrs={'placeholder': 'Usable fuel in gal'}))
+    pilot = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Pilot weight in lb'}))
+    front_pax = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Front pax weight in lb'}))
+    rear_pax_1 = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
+    rear_pax_2 = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
     cargo_1 = forms.IntegerField(min_value=0, max_value=120,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 in lb'}))
     cargo_2 = forms.IntegerField(min_value=0, max_value=50,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in lb'}))
-    fuel_allowance = forms.FloatField(min_value=0, widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in lb'}))
+    fuel_allowance = forms.FloatField(min_value=0, max_value=150, widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in lb'}))
 
     # General data validation.
     def clean_basic_weight(self):
@@ -53,11 +48,17 @@ class ManualForm(forms.Form):
             raise ValidationError(_('Invalid weight - The weight must be between 1397 and 2300 pounds'))
         return data
 
-    # Weight data validation.
     def clean_basic_moment(self):
         data = self.cleaned_data['basic_moment']
         if data < 0 or data > 120:
             raise ValidationError(_('Invalid moment - The moment must be between 0 and 120 lb-in (/1000)'))
+        return data
+
+    # Weight data validation.
+    def clean_usable_fuel(self):
+        data = self.cleaned_data['usable_fuel']
+        if data < 0 or data > 50:
+            raise ValidationError(_('Invalid fuel - The usable fuel must be between 0 and 50 gallons'))
         return data
 
     def clean_pilot(self):
@@ -98,6 +99,6 @@ class ManualForm(forms.Form):
 
     def clean_fuel_allowance(self):
         data = self.cleaned_data['fuel_allowance']
-        if data < 0 or data > 40:
-            raise ValidationError(_('Invalid weight - The weight must be between 0 and 40 pounds'))
+        if data < 0 or data > 150:
+            raise ValidationError(_('Invalid weight - The weight must be between 0 and 150 pounds'))
         return data

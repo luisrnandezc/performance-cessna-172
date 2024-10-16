@@ -5,7 +5,7 @@ GitHub: luisrnandezc
 Date: 13/09/2023
 
 NAME:
-    input.py
+    input_check.py
 
 DESCRIPTION:
     This module checks that the input data is valid and within limits.
@@ -48,7 +48,7 @@ def check_if_value_is_negative(value):
 def check_take_off_weight(to_weight):
     """
     Returns None if the argument is a valid aircraft weight,
-    otherwise the programs stops with a custom error message.
+    otherwise the program stops with a custom error message.
     """
     if check_if_value_is_numeric(to_weight) is False:
         sys.exit('Takeoff weight | ' + msg_error_invalid_value)
