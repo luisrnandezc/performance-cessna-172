@@ -1,4 +1,4 @@
-import input_check
+from . import input_check
 
 
 def compute_weight_and_balance(input_data):

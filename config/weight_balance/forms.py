@@ -25,21 +25,27 @@ class ManualForm(forms.Form):
     # General fields.
     seat_config = forms.TypedChoiceField(widget=forms.RadioSelect, choices=SEAT_CONFIG, coerce=int)
     basic_weight = forms.IntegerField(min_value=1397, max_value=2300,
-                                      widget=forms.TextInput(attrs={'placeholder': 'Basic empty weight in lb'}))
+                                      widget=forms.TextInput(attrs={'placeholder': 'Basic empty weight in pounds'}))
     basic_moment = forms.IntegerField(min_value=0, max_value=120,
                                       widget=forms.TextInput(attrs={'placeholder': 'Basic empty moment in lb-in (/1000)'}))
 
     # Weight data.
-    usable_fuel = forms.IntegerField(min_value=0, max_value=50, widget=forms.TextInput(attrs={'placeholder': 'Usable fuel in gal'}))
-    pilot = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Pilot weight in lb'}))
-    front_pax = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Front pax weight in lb'}))
-    rear_pax_1 = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
-    rear_pax_2 = forms.IntegerField(min_value=0, max_value=400, widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in lb'}))
+    usable_fuel = forms.IntegerField(min_value=0, max_value=50,
+                                     widget=forms.TextInput(attrs={'placeholder': 'Usable fuel in gallons'}))
+    pilot = forms.IntegerField(min_value=0, max_value=400,
+                               widget=forms.TextInput(attrs={'placeholder': 'Pilot weight in pounds'}))
+    front_pax = forms.IntegerField(min_value=0, max_value=400,
+                                   widget=forms.TextInput(attrs={'placeholder': 'Front pax weight in pounds'}))
+    rear_pax_1 = forms.IntegerField(min_value=0, max_value=400,
+                                    widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in pounds'}))
+    rear_pax_2 = forms.IntegerField(min_value=0, max_value=400,
+                                    widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in pounds'}))
     cargo_1 = forms.IntegerField(min_value=0, max_value=120,
-                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 in lb'}))
+                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 in pounds'}))
     cargo_2 = forms.IntegerField(min_value=0, max_value=50,
-                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in lb'}))
-    fuel_allowance = forms.FloatField(min_value=0, max_value=150, widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in lb'}))
+                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in pounds'}))
+    fuel_allowance = forms.IntegerField(min_value=0, max_value=150,
+                                        widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in pounds'}))
 
     # General data validation.
     def clean_basic_weight(self):
