@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
         <title>Cessna 172N | Performance | Weight & Balance</title>
@@ -14,7 +14,9 @@
                 <button class="app-selector">
                     <a href="{% url 'performance:input' %}">Performance</a>
                 </button>
-                <button class="app-selector">Weight & Balance</button>
+                <button class="app-selector">
+                    <a href="{% url 'weight_balance:input' %}">Weight & Balance</a>
+                </button>
             </div>
         </div>
     </body>
