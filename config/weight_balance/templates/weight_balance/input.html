@@ -70,14 +70,14 @@
                     <p class="error">{{ manual_form.front_pax.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Rear pax 1 weight [lb]:</label>
-                    {{ manual_form.rear_pax_1|add_class:"input-field" }}
-                    <p class="error">{{ manual_form.rear_pax_1.errors.as_text }}</p>
+                    <label class="form-text">Left rear pax weight [lb]:</label>
+                    {{ manual_form.rear_pax_left|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.rear_pax_left.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Rear pax 2 weight [lb]:</label>
-                    {{ manual_form.rear_pax_2|add_class:"input-field" }}
-                    <p class="error">{{ manual_form.rear_pax_2.errors.as_text }}</p>
+                    <label class="form-text">Right rear pax weight [lb]:</label>
+                    {{ manual_form.rear_pax_right|add_class:"input-field" }}
+                    <p class="error">{{ manual_form.rear_pax_right.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
                     <label class="form-text">Baggage area 1 weight [lb]:</label>
