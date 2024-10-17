@@ -32,15 +32,19 @@ def compute_takeoff_moment(data, arms):
     return data['basic_moment'] + round((weights_moment/1000), 1) + fuel_moment - fuel_allowance_moment
 
 
-def compute_takeoff_cg_location(data):
-    return None
+def compute_takeoff_cg_location(weight, moment):
+    return round((moment/weight)*1000, 1)
 
 
 def compute_weight_and_balance(input_data):
-
     takeoff_weight = compute_takeoff_weight(input_data)
     arms = compute_valid_arms(input_data)
     takeoff_moment = compute_takeoff_moment(input_data, arms)
-
-    balance_data = {}
+    cg_location = compute_takeoff_cg_location(takeoff_weight, takeoff_moment)
+    balance_data = {
+        'takeoff_weight': takeoff_weight,
+        'takeoff_moment': takeoff_moment,
+        'cg_location': cg_location,
+        'condition': None
+    }
     return balance_data
