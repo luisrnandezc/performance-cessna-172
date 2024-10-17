@@ -24,7 +24,7 @@ def validate_basic_moment(basic_moment):
 def validate_usable_fuel(usable_fuel):
     """Raise an exception if the argument is an invalid fuel volume."""
     if usable_fuel < 0 or usable_fuel > 50:
-        raise ValidationError(_("Invalid fuel - The usable fuel must be between 0 and 50 gallons"))
+        raise ValidationError(_("Invalid volume - The usable fuel must be between 0 and 50 gallons"))
 
 
 def validate_pilot(pilot):
@@ -64,9 +64,9 @@ def validate_cargo_2(cargo_2):
 
 
 def validate_fuel_allowance(fuel_allowance):
-    """Raise an exception if the argument is an invalid fuel weight."""
-    if fuel_allowance < 0 or fuel_allowance > 150:
-        raise ValidationError(_("Invalid weight - The weight must be between 0 and 150 pounds"))
+    """Raise an exception if the argument is an invalid fuel volume."""
+    if fuel_allowance < 0 or fuel_allowance > 2:
+        raise ValidationError(_("Invalid volume - The fuel allowance must be between 0 and 2 gallons"))
 
 
 class CSVFile(models.Model):
