@@ -41,10 +41,10 @@ def process_csv(csv_file):
     csv_reader = csv.reader(io_string, delimiter=',')
     weight_data = {}
     fields = ['seat_config', 'basic_weight', 'basic_moment',
-              'usable_fuel', 'pilot', 'front_pax', 'rear_pax_1', 'rear_pax_2', 'cargo_1', 'cargo_2', 'fuel_allowance']
+              'usable_fuel', 'pilot', 'front_pax', 'rear_pax_left', 'rear_pax_right', 'cargo_1', 'cargo_2', 'fuel_allowance']
     for (field, row) in zip(fields, csv_reader):
         value = row[1]
-        if value.isnumeric() or value[0] == '-':
+        if value.isnumeric():
             weight_data[field] = int(value)
         else:
             weight_data[field] = value

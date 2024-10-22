@@ -134,15 +134,15 @@ def check_cargo_2(cargo_2):
 
 def check_fuel_allowance(fuel_allowance):
     """
-    Returns None if the argument is a valid fuel allowance weight,
+    Returns None if the argument is a valid fuel allowance volume,
     otherwise the program stops with a custom error message.
     """
     if check_if_value_is_numeric(fuel_allowance) is False:
         sys.exit('Fuel allowance | ' + msg_error_invalid_value)
     elif check_if_value_is_negative(fuel_allowance) is True:
         sys.exit('Fuel allowance | ' + msg_error_negative_value)
-    elif int(fuel_allowance) < 0 or int(fuel_allowance) > 150:
-        sys.exit('Fuel allowance | ERROR: The fuel weight must be between 0 and 150 pounds.')
+    elif int(fuel_allowance) < 0 or int(fuel_allowance) > 2:
+        sys.exit('Fuel allowance | ERROR: The fuel allowance must be between 0 and 2 gallons.')
     else:
         return None
 
@@ -170,8 +170,8 @@ def check_input_data(input_data):
     check_usable_fuel(input_data['usable_fuel'])
     check_person_weight(input_data['pilot'])
     check_person_weight(input_data['front_pax'])
-    check_person_weight(input_data['rear_pax_1'])
-    check_person_weight(input_data['rear_pax_2'])
+    check_person_weight(input_data['rear_pax_left'])
+    check_person_weight(input_data['rear_pax_right'])
     check_cargo_1(input_data['cargo_1'])
     check_cargo_2(input_data['cargo_2'])
     check_fuel_allowance(input_data['fuel_allowance'])

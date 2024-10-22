@@ -5,3 +5,4 @@ trash/
 data/xlsx
 data/backup
 notes/
+config/db.sqlite3

@@ -24,7 +24,7 @@ def validate_basic_moment(basic_moment):
 def validate_usable_fuel(usable_fuel):
     """Raise an exception if the argument is an invalid fuel volume."""
     if usable_fuel < 0 or usable_fuel > 50:
-        raise ValidationError(_("Invalid fuel - The usable fuel must be between 0 and 50 gallons"))
+        raise ValidationError(_("Invalid volume - The usable fuel must be between 0 and 50 gallons"))
 
 
 def validate_pilot(pilot):
@@ -39,15 +39,15 @@ def validate_front_pax(front_pax):
         raise ValidationError(_("Invalid weight - The weight must be between 0 and 400 pounds"))
 
 
-def validate_rear_pax_1(rear_pax_1):
+def validate_rear_pax_left(rear_pax_left):
     """Raise an exception if the argument is an invalid weight."""
-    if rear_pax_1 < 0 or rear_pax_1 > 400:
+    if rear_pax_left < 0 or rear_pax_left > 400:
         raise ValidationError(_("Invalid weight - The weight must be between 0 and 400 pounds"))
 
 
-def validate_rear_pax_2(rear_pax_2):
+def validate_rear_pax_right(rear_pax_right):
     """Raise an exception if the argument is an invalid weight."""
-    if rear_pax_2 < 0 or rear_pax_2 > 400:
+    if rear_pax_right < 0 or rear_pax_right > 400:
         raise ValidationError(_("Invalid weight - The weight must be between 0 and 400 pounds"))
 
 
@@ -64,9 +64,9 @@ def validate_cargo_2(cargo_2):
 
 
 def validate_fuel_allowance(fuel_allowance):
-    """Raise an exception if the argument is an invalid fuel weight."""
-    if fuel_allowance < 0 or fuel_allowance > 150:
-        raise ValidationError(_("Invalid weight - The weight must be between 0 and 150 pounds"))
+    """Raise an exception if the argument is an invalid fuel volume."""
+    if fuel_allowance < 0 or fuel_allowance > 2:
+        raise ValidationError(_("Invalid volume - The fuel allowance must be between 0 and 2 gallons"))
 
 
 class CSVFile(models.Model):
@@ -84,8 +84,8 @@ class UploadCSVData(models.Model):
     usable_fuel = models.PositiveIntegerField(validators=[validate_usable_fuel])
     pilot = models.PositiveIntegerField(validators=[validate_pilot])
     front_pax = models.PositiveIntegerField(validators=[validate_front_pax])
-    rear_pax_1 = models.PositiveIntegerField(validators=[validate_rear_pax_1])
-    rear_pax_2 = models.PositiveIntegerField(validators=[validate_rear_pax_2])
+    rear_pax_1 = models.PositiveIntegerField(validators=[validate_rear_pax_left])
+    rear_pax_2 = models.PositiveIntegerField(validators=[validate_rear_pax_right])
     cargo_1 = models.PositiveIntegerField(validators=[validate_cargo_1])
     cargo_2 = models.PositiveIntegerField(validators=[validate_cargo_2])
     fuel_allowance = models.PositiveIntegerField(validators=[validate_fuel_allowance])

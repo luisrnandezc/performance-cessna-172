@@ -36,16 +36,16 @@ class ManualForm(forms.Form):
                                widget=forms.TextInput(attrs={'placeholder': 'Pilot weight in pounds'}))
     front_pax = forms.IntegerField(min_value=0, max_value=400,
                                    widget=forms.TextInput(attrs={'placeholder': 'Front pax weight in pounds'}))
-    rear_pax_1 = forms.IntegerField(min_value=0, max_value=400,
-                                    widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in pounds'}))
-    rear_pax_2 = forms.IntegerField(min_value=0, max_value=400,
-                                    widget=forms.TextInput(attrs={'placeholder': 'Rear pax weight in pounds'}))
+    rear_pax_left = forms.IntegerField(min_value=0, max_value=400,
+                                       widget=forms.TextInput(attrs={'placeholder': 'Left rear pax weight in pounds'}))
+    rear_pax_right = forms.IntegerField(min_value=0, max_value=400,
+                                       widget=forms.TextInput(attrs={'placeholder': 'Right rear pax weight in pounds'}))
     cargo_1 = forms.IntegerField(min_value=0, max_value=120,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 in pounds'}))
     cargo_2 = forms.IntegerField(min_value=0, max_value=50,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in pounds'}))
-    fuel_allowance = forms.IntegerField(min_value=0, max_value=150,
-                                        widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in pounds'}))
+    fuel_allowance = forms.IntegerField(min_value=0, max_value=2,
+                                        widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in gallons'}))
 
     # General data validation.
     def clean_basic_weight(self):
@@ -64,7 +64,7 @@ class ManualForm(forms.Form):
     def clean_usable_fuel(self):
         data = self.cleaned_data['usable_fuel']
         if data < 0 or data > 50:
-            raise ValidationError(_('Invalid fuel - The usable fuel must be between 0 and 50 gallons'))
+            raise ValidationError(_('Invalid volume - The usable fuel must be between 0 and 50 gallons'))
         return data
 
     def clean_pilot(self):
@@ -79,14 +79,14 @@ class ManualForm(forms.Form):
             raise ValidationError(_('Invalid weight - The weight must be between 0 and 400 pounds'))
         return data
 
-    def clean_rear_pax_1(self):
-        data = self.cleaned_data['rear_pax_1']
+    def clean_rear_pax_left(self):
+        data = self.cleaned_data['rear_pax_left']
         if data < 0 or data > 400:
             raise ValidationError(_('Invalid weight - The weight must be between 0 and 400 pounds'))
         return data
 
-    def clean_rear_pax_2(self):
-        data = self.cleaned_data['rear_pax_2']
+    def clean_rear_pax_right(self):
+        data = self.cleaned_data['rear_pax_right']
         if data < 0 or data > 400:
             raise ValidationError(_('Invalid weight - The weight must be between 0 and 400 pounds'))
         return data
@@ -105,6 +105,6 @@ class ManualForm(forms.Form):
 
     def clean_fuel_allowance(self):
         data = self.cleaned_data['fuel_allowance']
-        if data < 0 or data > 150:
-            raise ValidationError(_('Invalid weight - The weight must be between 0 and 150 pounds'))
+        if data < 0 or data > 2:
+            raise ValidationError(_('Invalid volume - The fuel allowance must be between 0 and 2 gallons'))
         return data
