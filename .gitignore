@@ -5,8 +5,4 @@ trash/
 data/xlsx
 data/backup
 notes/
-<<<<<<< HEAD
 config/db.sqlite3
-=======
-config/db.sqlite3
->>>>>>> feature/balance-csv
