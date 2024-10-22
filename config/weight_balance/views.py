@@ -47,6 +47,6 @@ def process_csv(csv_file):
         if value.isnumeric():
             weight_data[field] = int(value)
         else:
-            weight_data[field] = value
+            weight_data[field] = float(value)
 
     return weight_data

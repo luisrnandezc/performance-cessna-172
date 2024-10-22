@@ -44,6 +44,8 @@ class ManualForm(forms.Form):
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 in pounds'}))
     cargo_2 = forms.IntegerField(min_value=0, max_value=50,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in pounds'}))
+
+    # TODO: fuel_allowance must accept floats.
     fuel_allowance = forms.IntegerField(min_value=0, max_value=2,
                                         widget=forms.TextInput(attrs={'placeholder': 'Fuel allowance in gallons'}))
 
