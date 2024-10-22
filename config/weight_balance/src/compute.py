@@ -29,7 +29,7 @@ def compute_takeoff_moment(data, arms):
         weights_moment = weights_moment + data[key]*arm
     fuel_moment = compute_fuel_moment(data['usable_fuel'])
     fuel_allowance_moment = compute_fuel_moment(data['fuel_allowance'])
-    takeoff_moment = data['basic_moment'] + round((weights_moment/1000), 1) + fuel_moment - fuel_allowance_moment
+    takeoff_moment = data['basic_moment'] + round((weights_moment/1000), 2) + fuel_moment - fuel_allowance_moment
     return round(takeoff_moment, 1)
 
 
