@@ -37,6 +37,19 @@ def compute_takeoff_cg_location(weight, moment):
     return round((moment/weight)*1000, 1)
 
 
+def compute_balance_condition(takeoff_weight, cg_loc):
+    aft_limit = 47.3
+    if takeoff_weight <= 1950:
+        forward_limit = 35.0
+    else:
+        forward_limit = round(0.01*takeoff_weight+15.5, 1)
+    if cg_loc < forward_limit:
+        return 'C.G forward of limits'
+    if cg_loc > aft_limit:
+        return 'C.G aft of limits'
+    return 'Ok'
+
+
 def compute_weight_and_balance(input_data):
     takeoff_weight = compute_takeoff_weight(input_data)
     arms = compute_valid_arms(input_data)
