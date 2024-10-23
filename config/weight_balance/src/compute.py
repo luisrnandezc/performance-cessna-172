@@ -55,10 +55,11 @@ def compute_weight_and_balance(input_data):
     arms = compute_valid_arms(input_data)
     takeoff_moment = compute_takeoff_moment(input_data, arms)
     cg_location = compute_takeoff_cg_location(takeoff_weight, takeoff_moment)
+    condition = compute_balance_condition(takeoff_weight, cg_location)
     balance_data = {
         'takeoff_weight': takeoff_weight,
         'takeoff_moment': takeoff_moment,
         'cg_location': cg_location,
-        'condition': None
+        'condition': condition
     }
     return balance_data
