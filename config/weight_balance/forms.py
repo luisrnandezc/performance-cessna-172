@@ -41,7 +41,7 @@ class ManualForm(forms.Form):
     rear_pax_right = forms.IntegerField(min_value=0, max_value=400,
                                        widget=forms.TextInput(attrs={'placeholder': 'Right rear pax weight in pounds'}))
     cargo_1 = forms.IntegerField(min_value=0, max_value=120,
-                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 (or Child seat) in pounds'}))
+                                 widget=forms.TextInput(attrs={'placeholder': 'Baggage area 1 (or child seat) in pounds'}))
     cargo_2 = forms.IntegerField(min_value=0, max_value=50,
                                  widget=forms.TextInput(attrs={'placeholder': 'Baggage area 2 in pounds'}))
     fuel_allowance = forms.FloatField(min_value=0, max_value=2,
