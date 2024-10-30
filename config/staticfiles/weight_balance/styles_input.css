@@ -1,0 +1,115 @@
+* {
+    font-family: "Renogare-Regular", "Arial", sans-serif;
+    color: #ffffff;
+    font-size: 15px;
+    letter-spacing: 3px;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(./img/skylane1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 45%;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main-form-header > * {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sub-header > * {
+    color: rgb(0, 153, 255);
+}
+
+.input-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.input-field {
+    width: 75%;
+    color: #000000;
+}
+
+.radio-input-field {
+    color: #000000;
+    align-content: left;
+}
+
+.error {
+    color: #FF0000;
+}
+
+.submit-button {
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    width: 30%;
+    align-self: center;
+    transition: 0.5s;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(0, 153, 255);
+}
+
+.output-header {
+    color: #000000;
+}
+
+.output-data {
+    color: #000000;
+    letter-spacing: 1px;
+}
+
+/* Responsive design */
+
+@media screen and (max-width: 1070px) {
+    .form {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .form {
+        width: 100%;
+    }
+}
