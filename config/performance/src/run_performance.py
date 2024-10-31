@@ -15,6 +15,7 @@ from . import cruise
 from . import fuel
 from . import landing
 import pandas as pd
+from pathlib import Path
 
 file_dir = os.path.dirname(__file__)
 sys.path.append(file_dir)
@@ -26,16 +27,17 @@ def compute_performance(input_data):
     input_data = input_check.check_input_data(input_data)
 
     # Store performance data.
-    performance_path = r'C:\Users\luish\Desktop\Projects\performance_cessna_172\config\performance\src\data'
-    takeoff_df = pd.read_csv(performance_path + '\\' + 'takeoff.csv')
-    roc_df = pd.read_csv(performance_path + '\\' + 'roc.csv', index_col=0)
-    climb_df = pd.read_csv(performance_path + '\\' + 'climb.csv', index_col=0)
-    power_df = pd.read_csv(performance_path + '\\' + 'power.csv',)
-    range40_df = pd.read_csv(performance_path + '\\' + 'range40.csv', index_col=0)
-    range50_df = pd.read_csv(performance_path + '\\' + 'range50.csv', index_col=0)
-    endurance40_df = pd.read_csv(performance_path + '\\' + 'endurance40.csv', index_col=0)
-    endurance50_df = pd.read_csv(performance_path + '\\' + 'endurance50.csv', index_col=0)
-    landing_df = pd.read_csv(performance_path + '\\' + 'landing.csv', index_col=1)
+    folder_path = Path(__file__).parent.resolve() / "data"
+    # Store performance data.
+    takeoff_df = pd.read_csv(folder_path / "takeoff.csv")
+    roc_df = pd.read_csv(folder_path / "roc.csv", index_col=0)
+    climb_df = pd.read_csv(folder_path / "climb.csv", index_col=0)
+    power_df = pd.read_csv(folder_path / "power.csv")
+    range40_df = pd.read_csv(folder_path / "range40.csv", index_col=0)
+    range50_df = pd.read_csv(folder_path / "range50.csv", index_col=0)
+    endurance40_df = pd.read_csv(folder_path / "endurance40.csv", index_col=0)
+    endurance50_df = pd.read_csv(folder_path / "endurance50.csv", index_col=0)
+    landing_df = pd.read_csv(folder_path / "landing.csv", index_col=1)
 
     # Generate valid performance data.
     data.compute_valid_performance_data(input_data, power_df)
