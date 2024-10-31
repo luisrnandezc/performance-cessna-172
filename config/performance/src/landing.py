@@ -100,4 +100,4 @@ def compute_landing_performance(input_data, landing_df):
     # Correct landing distance for runway condition.
     condition = input_data['land_condition']
     ground_roll, fifty_ft_roll = correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
-    return ground_roll, fifty_ft_roll
+    return int(ground_roll), int(fifty_ft_roll)

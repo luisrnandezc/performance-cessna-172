@@ -108,7 +108,7 @@ def compute_takeoff_roc(press_alt, roc_temp, roc_df):
         roc = roc_df.loc[press_alt]['roc_p' + str(roc_temp)]
     else:
         roc = roc_df.loc[press_alt]['roc_' + str(roc_temp)]
-    return int(roc)
+    return roc
 
 
 def compute_takeoff_performance(input_data, takeoff_df, roc_df):
@@ -128,4 +128,4 @@ def compute_takeoff_performance(input_data, takeoff_df, roc_df):
     roc_press_alt = input_data['roc_press_alt']
     roc_temp = input_data['roc_temp']
     roc = compute_takeoff_roc(roc_press_alt, roc_temp, roc_df)
-    return ground_roll, fifty_ft_roll, roc
+    return int(ground_roll), int(fifty_ft_roll), int(roc)
