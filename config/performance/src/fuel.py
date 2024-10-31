@@ -122,6 +122,6 @@ def compute_fuel_required(input_data, climb_df, ktas, fuel_flow):
     cruise_time = round(cruise_distance/ground_speed, 1)
     # Finally, the total fuel consumption is computed.
     cruise_fuel = round(cruise_time*fuel_flow, 1)
-    total_fuel_required = 1.1 + climb_data[1] + cruise_fuel
+    total_fuel_required = round(1.1 + climb_data[1] + cruise_fuel, 1)
     fuel_reserve = round(int(input_data['fuel_capacity']) - total_fuel_required, 1)
     return total_fuel_required, fuel_reserve
