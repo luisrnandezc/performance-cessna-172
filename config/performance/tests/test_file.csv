@@ -5,8 +5,8 @@ Takeoff runway length,3000
 Takeoff runway condition,p
 Takeoff pressure altitude,7000
 Takeoff temperature,20
-Takeoff wind speed,0
-Takeoff wind direction,200
+Takeoff wind speed,9
+Takeoff wind direction,360
 Travel distance,620
 Cruise heading,330
 Cruise pressure altitude,8000
