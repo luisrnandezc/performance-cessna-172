@@ -1,7 +1,6 @@
 * {
     font-family: "Renogare-Regular", "Arial", sans-serif;
     color: #ffffff;
-    font-size: 15px;
     letter-spacing: 3px;
     box-sizing: border-box;
 }
@@ -109,6 +108,11 @@ button:hover {
 }
 
 @media screen and (max-width: 570px) {
+
+    * {
+        font-size: 0.85rem;
+    }
+
     .form {
         width: 100%;
     }
