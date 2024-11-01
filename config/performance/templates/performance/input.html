@@ -35,12 +35,12 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Takeoff weight [lb]:</label>
+                    <label class="form-text">Takeoff weight [lb]:</label><br>
                     {{ manual_form.to_weight|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_weight.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Fuel capacity [gal]:</label>
+                    <label class="form-text">Fuel capacity [gal]:</label><br>
                     {{ manual_form.fuel_capacity|add_class:"radio-input-field" }}
                 </div>
 
@@ -50,12 +50,12 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Takeoff runway heading [°]:</label>
+                    <label class="form-text">Takeoff runway heading [°]:</label><br>
                     {{ manual_form.to_heading|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff runway length [ft]:</label>
+                    <label class="form-text">Takeoff runway length [ft]:</label><br>
                     {{ manual_form.to_length|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_length.errors.as_text }}</p>
                 </div>
@@ -64,22 +64,22 @@
                     {{ manual_form.to_condition|add_class:"radio-input-field" }}
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff pressure altitude [ft]:</label>
+                    <label class="form-text">Takeoff pressure altitude [ft]:</label><br>
                     {{ manual_form.to_press_alt|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff temperature [°C]:</label>
+                    <label class="form-text">Takeoff temperature [°C]:</label><br>
                     {{ manual_form.to_temp|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff wind speed [kts]:</label>
+                    <label class="form-text">Takeoff wind speed [kts]:</label><br>
                     {{ manual_form.to_wind_speed|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Takeoff wind direction [°]:</label>
+                    <label class="form-text">Takeoff wind direction [°]:</label><br>
                     {{ manual_form.to_wind_direction|add_class:"input-field" }}
                     <p class="error">{{ manual_form.to_wind_direction.errors.as_text }}</p>
                 </div>
@@ -90,37 +90,37 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Travel distance [nm]:</label>
+                    <label class="form-text">Travel distance [nm]:</label><br>
                     {{ manual_form.travel_dist|add_class:"input-field" }}
                     <p class="error">{{ manual_form.travel_dist.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise heading [°]:</label>
+                    <label class="form-text">Cruise heading [°]:</label><br>
                     {{ manual_form.cr_heading|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise altitude [ft]:</label>
+                    <label class="form-text">Cruise altitude [ft]:</label><br>
                     {{ manual_form.cr_press_alt|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise temperature [°C]:</label>
+                    <label class="form-text">Cruise temperature [°C]:</label><br>
                     {{ manual_form.cr_temp|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise wind speed [kts]:</label>
+                    <label class="form-text">Cruise wind speed [kts]:</label><br>
                     {{ manual_form.cr_wind_speed|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise wind direction [°]:</label>
+                    <label class="form-text">Cruise wind direction [°]:</label><br>
                     {{ manual_form.cr_wind_direction|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_wind_direction.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Cruise power [rpm]:</label>
+                    <label class="form-text">Cruise power [rpm]:</label><br>
                     {{ manual_form.cr_power|add_class:"input-field" }}
                     <p class="error">{{ manual_form.cr_power.errors.as_text }}</p>
                 </div>
@@ -131,12 +131,12 @@
                 </div>
 
                 <div class="input-container">
-                    <label class="form-text">Landing runway heading [°]:</label>
+                    <label class="form-text">Landing runway heading [°]:</label><br>
                     {{ manual_form.land_heading|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_heading.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing runway length [ft]:</label>
+                    <label class="form-text">Landing runway length [ft]:</label><br>
                     {{ manual_form.land_length|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_length.errors.as_text }}</p>
                 </div>
@@ -145,22 +145,22 @@
                     {{ manual_form.land_condition|add_class:"radio-input-field" }}
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing pressure altitude [ft]:</label>
+                    <label class="form-text">Landing pressure altitude [ft]:</label><br>
                     {{ manual_form.land_press_alt|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_press_alt.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing temperature [°C]:</label>
+                    <label class="form-text">Landing temperature [°C]:</label><br>
                     {{ manual_form.land_temp|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_temp.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing wind speed [kts]:</label>
+                    <label class="form-text">Landing wind speed [kts]:</label><br>
                     {{ manual_form.land_wind_speed|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_wind_speed.errors.as_text }}</p>
                 </div>
                 <div class="input-container">
-                    <label class="form-text">Landing wind direction [°]:</label>
+                    <label class="form-text">Landing wind direction [°]:</label><br>
                     {{ manual_form.land_wind_direction|add_class:"input-field" }}
                     <p class="error">{{ manual_form.land_wind_direction.errors.as_text }}</p>
                 </div>

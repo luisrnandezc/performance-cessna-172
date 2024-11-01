@@ -109,6 +109,11 @@ button:hover {
 }
 
 @media screen and (max-width: 570px) {
+
+    * {
+        font-size: 0.85rem;
+    }
+
     .form {
         width: 100%;
     }
