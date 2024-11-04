@@ -81,7 +81,7 @@ def correct_distance_for_runway_condition(ground_roll, fifty_ft_roll, condition)
         ground_roll (int): corrected minimum required landing distance.
         fifty_ft_roll (int): corrected distance required to clear a 50 ft obstacle.
     """
-    if condition == 'GD':
+    if condition == 'g':
         corr = round(ground_roll*0.45, 2)
         ground_roll = math.ceil(ground_roll + corr)
         fifty_ft_roll = math.ceil(fifty_ft_roll + corr)
